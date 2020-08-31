@@ -22,7 +22,6 @@ export class SceneTitle extends BaseScene {
     //
     // uncomment to turn on music
     this.mm.setBackgroundMusic('underwater');
-    console.log('ae')
     //
     this.setBackground('sky');
     //
