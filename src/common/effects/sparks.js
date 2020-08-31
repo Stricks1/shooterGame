@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class Sparks {
     constructor(config) {
         // super(config.scene);

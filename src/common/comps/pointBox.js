@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     TextStyles
 } from "../ui/textStyles";

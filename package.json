@@ -4,8 +4,9 @@
   "description": "Phaser 3 shooter game",
   "main": "src/index.js",
   "scripts": {
+    "heroku-prebuild": "npm install --dev",
     "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "start": "npm run build && webpack-dev-server --config webpack/base.js --host=0.0.0.0 --port=$PORT --disable-host-check --open"
   },
   "repository": {
     "type": "git",
@@ -34,5 +35,6 @@
   },
   "dependencies": {
     "phaser": "^3.20.1"
-  }
+  },
+  "heroku-run-build-script": true
 }

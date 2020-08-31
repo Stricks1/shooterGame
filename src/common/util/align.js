@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class Align {
     static scaleToGameW(obj, per, scene) {
         obj.displayWidth = scene.game.config.width * per;
@@ -18,7 +19,6 @@ export class Align {
         obj.y = scene.game.config.height / 2 - obj.displayHeight / 2;
     }
     static center(obj, scene) {
-        console.log(scene);
         obj.x = scene.game.config.width / 2;
         obj.y = scene.game.config.height / 2;
     }

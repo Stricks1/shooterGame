@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class StarBurst {
     constructor(config) {
         this.scene = config.scene;

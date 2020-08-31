@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     Model
 } from "../mc/model"

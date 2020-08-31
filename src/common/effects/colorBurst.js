@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class ColorBurst {
     constructor(config) {
         this.scene = config.scene;

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class Ripple {
     constructor(config) {
         this.scene = config.scene;

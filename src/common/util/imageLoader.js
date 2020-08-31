@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class ImageLoader {
     constructor(config) {
         this.scene = config.scene;

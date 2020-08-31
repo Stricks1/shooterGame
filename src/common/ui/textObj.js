@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     EventDispatcher
 } from "../../common/mc/eventDispatcher";

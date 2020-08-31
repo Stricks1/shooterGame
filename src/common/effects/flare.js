@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {
     Align
 } from "../util/align";

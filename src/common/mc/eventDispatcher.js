@@ -1,3 +1,4 @@
+/* eslint-disable */
 let instance = null;
 export class EventDispatcher extends Phaser.Events.EventEmitter {
     constructor() {

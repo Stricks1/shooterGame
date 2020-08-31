@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class AlignGrid {
     constructor(config) {
         this.config = config;

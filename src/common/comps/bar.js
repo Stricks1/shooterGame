@@ -1,3 +1,4 @@
+/* eslint-disable */
 export class Bar extends Phaser.GameObjects.Container {
     constructor(config) {
         if (!config.scene) {

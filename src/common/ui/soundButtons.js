@@ -1,3 +1,4 @@
+/* eslint-disable */
 import {ToggleButton} from "../ui/toggleButton";
 
 export class SoundButtons extends Phaser.GameObjects.Container {

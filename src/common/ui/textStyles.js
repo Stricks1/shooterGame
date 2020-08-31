@@ -1,3 +1,4 @@
+/* eslint-disable */
 let instance = null;
 export class TextStyles {
     constructor(width) {
