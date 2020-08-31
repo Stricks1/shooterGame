@@ -197,7 +197,7 @@ export class SceneMain extends BaseScene {
     }
 
     if (this.cursors.up.isDown && this.player.getData('dbJump')) {
-      this.player.jump(this.cursors.up);
+      this.player.jump(this.cursors.up, this);
     }
 
     this.dolphinsGroup.getChildren().forEach((dolphin) => {

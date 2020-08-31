@@ -56,5 +56,8 @@ export class SoundPanel extends UIBlock {
         //
         btnMusic.x = this.back.x - this.back.displayWidth * .25;
         btnSound.x = this.back.x + this.back.displayWidth * .25;
+        this.back.setScrollFactor(0);
+        btnMusic.setScrollFactor(0);
+        btnSound.setScrollFactor(0);
     }
 }

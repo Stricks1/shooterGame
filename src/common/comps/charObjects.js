@@ -33,7 +33,7 @@ export class Player extends CharObject {
     this.body.velocity.x = this.getData('speed');
   }
 
-  jump(cursorUp) {
+  jump(cursorUp, scene) {
     if (this.getData('jumpTime') !== cursorUp.timeDown) {
       this.setData('jumping', false);
     }
@@ -43,6 +43,7 @@ export class Player extends CharObject {
     this.setData('jumpTime', cursorUp.timeDown);
     if (!this.getData('jumping')) {
       this.body.velocity.y = -this.getData('speedJump');
+      scene.mm.playSound('smw_jump');
     }
     this.setData('jumping', true);
   }

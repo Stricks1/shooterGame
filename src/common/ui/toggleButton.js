@@ -52,6 +52,7 @@ export class ToggleButton extends Phaser.GameObjects.Container {
         //set the listener for the back
         this.back.setInteractive();
         this.back.on('pointerdown', this.toggle, this);
+        this.back.setScrollFactor(0);
         //if there is position information then apply it
         if (config.x) {
             this.x = config.x;
