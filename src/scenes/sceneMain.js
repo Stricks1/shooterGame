@@ -10,6 +10,8 @@ import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
 import { AlignGrid } from '../common/util/alignGrid';
 import { Player, Dolphin } from '../common/comps/charObjects';
+import { ScoreBox } from '../common/comps/scoreBox';
+import { Clock } from '../common/comps/clock';
 
 //
 //
@@ -174,6 +176,30 @@ export class SceneMain extends BaseScene {
   makeUi() {
     super.makeSoundPanel();
     super.makeGear();
+
+    this.scoreBox = new ScoreBox({ scene: this });
+    this.placeAtIndex(1, this.scoreBox);
+    this.scoreBox.setScrollFactor(0);
+
+    this.emitter.emit('UP_POINTS', 5);
+
+    this.clock = new Clock({
+      scene: this,
+      callback: this.timeUp.bind(this),
+    });
+    this.placeAtIndex(9, this.clock);
+    this.clock.setClock(600);
+    console.log(this.clock.getClockTime());
+    this.clock.startClock();
+    this.clock.setScrollFactor(0);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  timeUp() {
+    // endGame by clock
+    // this.emitter.emit('UP_POINTS', 4);
+    this.emitter.emit('STOP_TIME');
+    // this.scene.start('SceneOver');
   }
 
   update() {
