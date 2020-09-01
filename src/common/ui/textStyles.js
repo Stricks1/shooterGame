@@ -140,7 +140,7 @@ export class TextStyles {
         this.styles['SCORE'] = {
             style: {
                 fontFamily: TextStyles.MAIN_FONT,
-                fontSize: TextStyles.SIZE_LARGE,
+                fontSize: TextStyles.SIZE_MED,
                 color: "#ffffff"
             }
         };

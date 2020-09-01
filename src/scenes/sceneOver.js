@@ -31,7 +31,7 @@ export class SceneOver extends BaseScene {
     //
     //  let buttonStyle = this.textStyles.getStyle(TextStyles.BUTTON_STYLE);
     // eslint-disable-next-line no-undef
-    const btnNext = new FlatButton({
+    /*    const btnNext = new FlatButton({
       scene: this,
       textStyle: 'BUTTON_STYLE',
       key: 'button',
@@ -39,6 +39,7 @@ export class SceneOver extends BaseScene {
       callback: this.playAgain.bind(this),
     });
     this.aGrid.placeAtIndex(104, btnNext);
+*/
     //
     //
     //

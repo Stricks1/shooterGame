@@ -33,6 +33,9 @@ export class ScoreBox extends UIBlock {
         this.emitter.on("SCORE_UPDATED",this.scoreUpdated.bind(this));
         
     }
+    getScore() {
+        return this.model.score 
+    }
     setScore(score)
     {
         this.model.score=score;
