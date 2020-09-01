@@ -102,10 +102,10 @@ export class SceneMain extends BaseScene {
 
     // create jelly
     this.jellysGroup = this.physics.add.group();
-  //  this.createJelly(67);
-  //  this.placeWall(34, 'enWall');
-  //  this.placeWall(30, 'enWall');
-    this.physics.add.collider(this.jellyGroup, this.enWallGroup);
+    this.createJelly(620);
+    this.placeWall(140, 'enWall');
+    this.placeWall(1220, 'enWall');
+    this.physics.add.collider(this.jellysGroup, this.enWallGroup);
 
     // create main character
     this.player = new Player(this, 100, 450, 'hero');
@@ -114,6 +114,7 @@ export class SceneMain extends BaseScene {
     this.physics.add.collider(this.player, this.brickGroup);
     this.physics.add.collider(this.player, this.dolphinsGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.whalesGroup, () => { this.gameOver(false); });
+    this.physics.add.collider(this.player, this.jellysGroup, () => { this.gameOver(false); });
     this.player.animation();
 
     this.anims.create({
@@ -127,7 +128,7 @@ export class SceneMain extends BaseScene {
 
     //
     //
-    this.blockGrid.showNumbers();
+    // this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -150,6 +151,7 @@ export class SceneMain extends BaseScene {
     this.dolphinsGroup.add(dolph);
     dolph.moveRight();
     this.blockGrid.placeAtIndex(place, dolph);
+    Align.scaleToGameW(dolph, 0.075, this);
     dolph.animation();
     dolph.anims.play('dolright');
   }
@@ -169,9 +171,8 @@ export class SceneMain extends BaseScene {
     const jelly = new Jelly(this, 0, 0, 'jelly');
     this.jellysGroup.add(jelly);
     jelly.moveUp();
-    this.blockGrid.placeAtIndex(place, whale);
-//    Align.scaleToGameW(whale, 0.25, this);
-//    whale.body.setSize(whale.width, whale.height / 1.5, false);
+    this.blockGrid.placeAtIndex(place, jelly);
+    Align.scaleToGameW(jelly, 0.05, this);
     jelly.animation();
     jelly.anims.play('jellymove');
   }
@@ -255,6 +256,13 @@ export class SceneMain extends BaseScene {
       dolphin.destroy();
       this.mm.playSound('enemy_death');
       this.scorePoints += 10;
+      this.scoreLabel.text = `Score: ${this.scorePoints}`;
+    });
+    this.physics.add.collider(shoot, this.jellysGroup, (shoot, jelly) => {
+      shoot.destroy();
+      jelly.destroy();
+      this.mm.playSound('enemy_death');
+      this.scorePoints += 15;
       this.scoreLabel.text = `Score: ${this.scorePoints}`;
     });
     this.physics.add.collider(shoot, this.whalesGroup, (shoot, whale) => {
