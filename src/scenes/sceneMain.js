@@ -11,7 +11,6 @@ import dolp from '../../assets/images/dolphins.png';
 import ink from '../../assets/images/inkOct.png';
 import { AlignGrid } from '../common/util/alignGrid';
 import { Player, Dolphin, Ink } from '../common/comps/charObjects';
-import { ScoreBox } from '../common/comps/scoreBox';
 import { Clock } from '../common/comps/clock';
 
 //
@@ -106,6 +105,7 @@ export class SceneMain extends BaseScene {
     //
     // this.blockGrid.showNumbers();
     this.makeUi();
+    this.scorePoints = 0;
   }
 
   gameOver(finish) {
@@ -114,6 +114,7 @@ export class SceneMain extends BaseScene {
       console.log('calculate points on time');
     } else {
       this.emitter.emit('STOP_TIME');
+      console.log(this.scorePoints);
       this.scene.start('SceneLoad');
       // load sceneOver;
     }
@@ -175,9 +176,13 @@ export class SceneMain extends BaseScene {
     super.makeSoundPanel();
     super.makeGear();
 
-    this.scoreBox = new ScoreBox({ scene: this });
-    this.placeAtIndex(1, this.scoreBox);
-    this.scoreBox.setScrollFactor(0);
+    this.scoreLabel = this.add.text(20, 20, 'Score: 0', {
+      font: '25px Arial',
+      fill: 'white',
+    });
+
+    this.placeAtIndex(0, this.scoreLabel);
+    this.scoreLabel.setScrollFactor(0);
 
     this.clock = new Clock({
       scene: this,
@@ -199,7 +204,8 @@ export class SceneMain extends BaseScene {
     this.physics.add.collider(shoot, this.dolphinsGroup, (shoot, dolphin) => {
       shoot.destroy();
       dolphin.destroy();
-      this.emitter.emit('UP_POINTS', 10);
+      this.scorePoints += 10;
+      this.scoreLabel.text = `Score: ${this.scorePoints}`;
     });
     this.physics.add.collider(shoot, this.brickGroup, (shoot) => {
       shoot.destroy();
