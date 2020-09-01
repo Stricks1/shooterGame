@@ -6,6 +6,8 @@ import bgr3 from '../../assets/images/foreground-1.png';
 import bgr32 from '../../assets/images/foreground-2.png';
 import ground1 from '../../assets/images/tiles-sand-coral.png';
 import ground2 from '../../assets/images/tiles-rock.png';
+import ground3 from '../../assets/images/tiles-sandbar2.png';
+import lever from '../../assets/images/lever.png';
 import chest from '../../assets/images/chest.png';
 import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
@@ -46,6 +48,7 @@ export class SceneMain extends BaseScene {
     this.load.image('bkgr32', bgr32);
     this.load.image('ground1', ground1);
     this.load.image('ground2', ground2);
+    this.load.image('ground3', ground3);
     this.load.image('chest', chest);
     this.load.image('enWall', enWall);
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
@@ -55,6 +58,7 @@ export class SceneMain extends BaseScene {
     this.load.spritesheet('whale', whale, { frameWidth: 64, frameHeight: 33 });
     this.load.spritesheet('jelly', jelly, { frameWidth: 28, frameHeight: 25 });
     this.load.spritesheet('agrofish', agroFish, { frameWidth: 29, frameHeight: 26 });
+    this.load.spritesheet('lever', lever, { frameWidth: 64, frameHeight: 40 });
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
@@ -88,15 +92,48 @@ export class SceneMain extends BaseScene {
     this.backGroundAlign(totalWidth, 'bkgr3', 'bkgr32', 0.50);
 
     this.cameras.main.setBounds(0, 0, this.sys.game.config.width * 10, this.sys.game.config.height);
-    this.makeFloor(1200, 1319, 'ground1');
+
 
     // create chest endGame
     this.makeFloor(357, 359, 'ground2');
     const chest = this.physics.add.sprite(0, 0, 'chest');
-    this.blockGrid.placeAtIndex(1076, chest);
+    this.blockGrid.placeAtIndex(238, chest);
+    this.physics.add.collider(chest, this.brickGroup);
     chest.setGravityY(100);
+
+    // create lever
+    this.lever = this.physics.add.sprite(0, 0, 'lever');
+    this.blockGrid.placeAtIndex(1082, this.lever);
+    Align.scaleToGameW(this.lever, 0.075, this);
+    this.lever.setImmovable();
+
     this.physics.world.setBounds(0, 0,
       this.sys.game.config.width * 10, this.sys.game.config.height);
+
+    // create scenario tiles and platforms
+    this.placeBlock(21, 'ground2', 0.075);
+    this.placeBlock(141, 'ground2', 0.075);
+    this.placeBlock(677, 'ground2', 0.075);
+    this.placeBlock(797, 'ground2', 0.075);
+    this.placeBlock(917, 'ground2', 0.075);
+    this.placeBlock(1037, 'ground2', 0.075);
+    this.placeBlock(1157, 'ground2', 0.075);
+    this.placeDoor();
+    this.placeBlock(356, 'ground2');
+    this.makeFloor(863, 870, 'ground3');
+    this.makeFloor(513, 530, 'ground3');
+    this.makeFloor(1020, 1025, 'ground3');
+    this.makeFloor(787, 790, 'ground3');
+    this.makeFloor(551, 557, 'ground3');
+    this.makeFloor(451, 460, 'ground3');
+    this.makeFloor(840, 842, 'ground3');
+    this.makeFloor(799, 800, 'ground3');
+    this.makeFloor(822, 832, 'ground3');
+    this.makeFloor(595, 595, 'ground3');
+
+
+    // floor
+    this.makeFloor(1200, 1319, 'ground1');
 
     // Enemy creations
     // create dolphin
@@ -139,6 +176,8 @@ export class SceneMain extends BaseScene {
     this.physics.add.collider(this.player, this.whalesGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.jellysGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.agroFishesGroup, () => { this.gameOver(false); });
+    this.physics.add.collider(this.player, chest, () => { this.gameOver(true); });
+    this.physics.add.collider(this.player, this.lever, () => { this.lever.anims.play('leverDown'); this.door1.destroy(); this.door2.destroy(); });
     this.player.animation();
 
     this.anims.create({
@@ -155,11 +194,18 @@ export class SceneMain extends BaseScene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'leverDown',
+      frames: [{ key: 'lever', frame: 1 }],
+      frameRate: 10,
+      repeat: -1,
+    });
+
     this.cameras.main.startFollow(this.player);
 
     //
     //
-    //this.blockGrid.showNumbers();
+    this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -168,13 +214,16 @@ export class SceneMain extends BaseScene {
     this.mm.playSound('game_over');
     this.mm.background.stop();
     if (finish) {
-      console.log('calculate points on time');
+      this.emitter.emit('STOP_TIME');
+      const secounds = this.clock.getClockTime();
+      this.scorePoints += (secounds * 50);
+      this.scene.start('SceneLoad');
     } else {
       this.emitter.emit('STOP_TIME');
-      console.log(this.scorePoints);
       this.scene.start('SceneLoad');
       // load sceneOver;
     }
+    console.log(this.scorePoints);
   }
 
   createDolphin(place) {
@@ -258,12 +307,25 @@ export class SceneMain extends BaseScene {
     Align.scaleToGameW(block, 0.025, this);
   }
 
-  placeBlock(pos, key) {
+  placeBlock(pos, key, scale = 0.1) {
     const block = this.physics.add.sprite(0, 0, key);
     this.blockGrid.placeAtIndex(pos, block);
     this.brickGroup.add(block);
     block.setImmovable();
-    Align.scaleToGameW(block, 0.1, this);
+    Align.scaleToGameW(block, scale, this);
+  }
+
+  placeDoor() {
+    this.door1 = this.physics.add.sprite(0, 0, 'ground2');
+    this.door2 = this.physics.add.sprite(0, 0, 'ground2');
+    this.blockGrid.placeAtIndex(116, this.door1);
+    this.brickGroup.add(this.door1);
+    this.door1.setImmovable();
+    Align.scaleToGameW(this.door1, 0.075, this);
+    this.blockGrid.placeAtIndex(236, this.door2);
+    this.brickGroup.add(this.door2);
+    this.door2.setImmovable();
+    Align.scaleToGameW(this.door2, 0.075, this);
   }
 
   makeUi() {
@@ -331,6 +393,11 @@ export class SceneMain extends BaseScene {
         this.mm.playSound('enemy_hit');
       }
     });
+    this.physics.add.collider(shoot, this.lever, () => { 
+      this.lever.anims.play('leverDown');
+      this.door1.destroy();
+      this.door2.destroy();
+    });
     this.physics.add.collider(shoot, this.brickGroup, (shoot) => {
       shoot.destroy();
     });
@@ -347,10 +414,12 @@ export class SceneMain extends BaseScene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
-        if (agroFish.body.velocity.x > 0) {
-          agroFish.anims.play('agroright', true);
-        } else {
-          agroFish.anims.play('agroleft', true);
+        if (agroFish.body) {
+          if (agroFish.body.velocity.x > 0) {
+            agroFish.anims.play('agroright', true);
+          } else {
+            agroFish.anims.play('agroleft', true);
+          }
         }
       },
       callbackScope: this,

@@ -51,7 +51,7 @@ export class Player extends CharObject {
     this.scene = scene;
 
     this.setData('speed', 200);
-    this.setData('speedJump', 300);
+    this.setData('speedJump', 250);
     this.setData('dbJump', true);
     this.setData('jumping', false);
     this.setData('jumpTime', 0);
