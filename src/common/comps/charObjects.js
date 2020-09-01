@@ -8,8 +8,6 @@ export class CharObject extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.world.enableBody(this, 0);
-    this.setData('isAgro', false);
-    this.setData('isDead', false);
   }
 }
 
@@ -30,13 +28,30 @@ export class Ink extends CharObject {
   }
 }
 
+export class Light extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+
+    this.setData('speed', 320);
+    this.setGravityY(0);
+  }
+
+  boltLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  boltRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+}
+
 export class Player extends CharObject {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);
     this.scene = scene;
 
     this.setData('speed', 200);
-    this.setData('speedJump', 300);
+    this.setData('speedJump', 250);
     this.setData('dbJump', true);
     this.setData('jumping', false);
     this.setData('jumpTime', 0);
@@ -115,6 +130,141 @@ export class Dolphin extends CharObject {
       key: 'dolleft',
       frames: this.scene.anims.generateFrameNumbers('dolphin', { start: 4, end: 7 }),
       frameRate: 10,
+      repeat: -1,
+    });
+  }
+}
+
+
+export class Whale extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 80);
+    this.setData('life', 3);
+  }
+
+  moveLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  moveRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+
+  gotHit() {
+    let life = this.getData('life');
+    life -= 1;
+    this.setData('life', life);
+    if (life === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'whaleright',
+      frames: this.scene.anims.generateFrameNumbers('whale', { start: 0, end: 9 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'whaleleft',
+      frames: this.scene.anims.generateFrameNumbers('whale', { start: 10, end: 19 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+  }
+}
+
+
+export class Jelly extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 200);
+  }
+
+  moveUp() {
+    this.body.velocity.y = -this.getData('speed');
+  }
+
+  moveDown() {
+    this.body.velocity.y = this.getData('speed');
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'jellymove',
+      frames: this.scene.anims.generateFrameNumbers('jelly', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+  }
+}
+
+export class AgroFish extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 180);
+    this.setData('life', 2);
+    this.setData('shoot', true);
+  }
+
+  shootAgain() {
+    this.setData('shoot', true);
+  }
+
+  shootDone() {
+    this.setData('shoot', false);
+  }
+
+  moveLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  moveRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+
+  gotHit() {
+    let life = this.getData('life');
+    life -= 1;
+    this.setData('life', life);
+    if (life === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'agroright',
+      frames: this.scene.anims.generateFrameNumbers('agrofish', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'agroleft',
+      frames: this.scene.anims.generateFrameNumbers('agrofish', { start: 4, end: 7 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'shootleft',
+      frames: [{ key: 'agrofish', frame: 8 }],
+      frameRate: 20,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'shootright',
+      frames: [{ key: 'agrofish', frame: 9 }],
+      frameRate: 20,
       repeat: -1,
     });
   }

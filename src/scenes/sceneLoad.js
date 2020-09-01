@@ -1,9 +1,6 @@
 import { BaseScene } from './baseScene';
 import { Bar } from '../common/comps/bar';
 import { Align } from '../common/util/align';
-import { StarBurst } from '../common/effects/starBurst';
-import { ColorBurst } from '../common/effects/colorBurst';
-import { Flare } from '../common/effects/flare';
 
 // eslint-disable-next-line import/prefer-default-export
 export class SceneLoad extends BaseScene {
@@ -49,7 +46,7 @@ export class SceneLoad extends BaseScene {
     //
     // game png
     //
-    const pngArray = ['panelBack', 'title', 'far'];
+    const pngArray = ['panelBack', 'title'];
     for (let i = 0; i < pngArray.length; i += 1) {
       this.loadPng(pngArray[i], this.imagePath);
     }
@@ -77,7 +74,7 @@ export class SceneLoad extends BaseScene {
     //
     // common wav
     //
-    const cwavArray = ['smw_jump', 'smb_bump'];
+    const cwavArray = ['smw_jump', 'smb_bump', 'enemy_hit', 'enemy_death', 'game_over', 'enemy_shoot'];
     for (let i = 0; i < cwavArray.length; i += 1) {
       this.loadWav(cwavArray[i]);
     }
@@ -98,9 +95,6 @@ export class SceneLoad extends BaseScene {
     //
     // load effects
     //
-    StarBurst.preload(this, `${this.common}images/effects/stars.png`);
-    ColorBurst.preload(this, `${this.common}images/effects/colorStars.png`);
-    Flare.preload(this, `${this.common}images/effects/flare.png`);
     // used for point box
     this.load.image('holder', `${this.common}images/ui/backs/holder.jpg`);
   }
