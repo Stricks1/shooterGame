@@ -149,7 +149,7 @@ export class SceneMain extends BaseScene {
 
     //
     //
-    this.blockGrid.showNumbers();
+    //this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -206,6 +206,7 @@ export class SceneMain extends BaseScene {
     agro.moveRight();
     this.blockGrid.placeAtIndex(place, agro);
     Align.scaleToGameW(agro, 0.075, this);
+    agro.body.setSize(agro.width, agro.height / 1.35, false);
     agro.animation();
     agro.anims.play('agroright');
   }
