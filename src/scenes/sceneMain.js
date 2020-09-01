@@ -161,6 +161,15 @@ export class SceneMain extends BaseScene {
     this.createDolphin(1077);
     this.placeWall(1075, 'enWall');
     this.placeWall(1079, 'enWall');
+    this.createDolphin(416);
+    this.placeWall(414, 'enWall');
+    this.placeWall(419, 'enWall');
+    this.createDolphin(706);
+    this.placeWall(701, 'enWall');
+    this.placeWall(711, 'enWall');
+    this.createDolphin(468);
+    this.placeWall(465, 'enWall');
+    this.placeWall(471, 'enWall');
     this.physics.add.collider(this.dolphinsGroup, this.enWallGroup);
 
     // create whales
@@ -174,6 +183,9 @@ export class SceneMain extends BaseScene {
     this.createWhale(215);
     this.placeWall(210, 'enWall');
     this.placeWall(220, 'enWall');
+    this.createWhale(890);
+    this.placeWall(887, 'enWall');
+    this.placeWall(898, 'enWall');
     this.physics.add.collider(this.whalesGroup, this.enWallGroup);
 
     // create jelly
@@ -182,8 +194,8 @@ export class SceneMain extends BaseScene {
     this.placeWall(140, 'enWall');
     this.placeWall(1220, 'enWall');
     this.createJelly(879);
-    this.placeWall(639, 'enWall');
-    this.placeWall(1119, 'enWall');
+    this.placeWall(519, 'enWall');
+    this.placeWall(1239, 'enWall');
     this.createJelly(439);
     this.placeWall(79, 'enWall');
     this.placeWall(799, 'enWall');
@@ -255,7 +267,7 @@ export class SceneMain extends BaseScene {
 
     //
     //
-    //this.blockGrid.showNumbers();
+    // this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -395,7 +407,7 @@ export class SceneMain extends BaseScene {
       callback: this.timeUp.bind(this),
     });
     this.placeAtIndex(9, this.clock);
-    this.clock.setClock(600);
+    this.clock.setClock(300);
     this.clock.startClock();
     this.clock.setScrollFactor(0);
   }
@@ -426,7 +438,7 @@ export class SceneMain extends BaseScene {
       if (whale.gotHit()) {
         whale.destroy();
         this.mm.playSound('enemy_death');
-        this.scorePoints += 35;
+        this.scorePoints += 80;
         this.scoreLabel.text = `Score: ${this.scorePoints}`;
       } else {
         this.mm.playSound('enemy_hit');
@@ -437,7 +449,7 @@ export class SceneMain extends BaseScene {
       if (agro.gotHit()) {
         agro.destroy();
         this.mm.playSound('enemy_death');
-        this.scorePoints += 50;
+        this.scorePoints += 45;
         this.scoreLabel.text = `Score: ${this.scorePoints}`;
       } else {
         this.mm.playSound('enemy_hit');
