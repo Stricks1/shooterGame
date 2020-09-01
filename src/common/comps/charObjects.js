@@ -13,15 +13,34 @@ export class CharObject extends Phaser.Physics.Arcade.Sprite {
   }
 }
 
+export class Ink extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+
+    this.setData('speed', 320);
+    this.setGravityY(50);
+  }
+
+  inkLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  inkRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+}
+
 export class Player extends CharObject {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);
+    this.scene = scene;
 
     this.setData('speed', 200);
     this.setData('speedJump', 300);
     this.setData('dbJump', true);
     this.setData('jumping', false);
     this.setData('jumpTime', 0);
+    this.setData('inkTime', 0);
     this.setGravityY(250);
   }
 
@@ -33,7 +52,7 @@ export class Player extends CharObject {
     this.body.velocity.x = this.getData('speed');
   }
 
-  jump(cursorUp) {
+  jump(cursorUp, scene) {
     if (this.getData('jumpTime') !== cursorUp.timeDown) {
       this.setData('jumping', false);
     }
@@ -43,14 +62,36 @@ export class Player extends CharObject {
     this.setData('jumpTime', cursorUp.timeDown);
     if (!this.getData('jumping')) {
       this.body.velocity.y = -this.getData('speedJump');
+      scene.mm.playSound('smw_jump');
     }
     this.setData('jumping', true);
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'left',
+      frames: this.scene.anims.generateFrameNumbers('hero', { start: 0, end: 1 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'turn',
+      frames: [{ key: 'hero', frame: 4 }],
+      frameRate: 20,
+    });
+    this.scene.anims.create({
+      key: 'right',
+      frames: this.scene.anims.generateFrameNumbers('hero', { start: 2, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+    });
   }
 }
 
 export class Dolphin extends CharObject {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);
+    this.scene = scene;
 
     this.setData('speed', 120);
   }
@@ -61,5 +102,20 @@ export class Dolphin extends CharObject {
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'dolright',
+      frames: this.scene.anims.generateFrameNumbers('dolphin', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'dolleft',
+      frames: this.scene.anims.generateFrameNumbers('dolphin', { start: 4, end: 7 }),
+      frameRate: 10,
+      repeat: -1,
+    });
   }
 }

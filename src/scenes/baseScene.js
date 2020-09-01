@@ -118,6 +118,7 @@ export class BaseScene extends Phaser.Scene {
     this.aGrid.placeAtIndex(110, gear);
     gear.setInteractive();
     gear.on('pointerdown', this.toggleSoundPanel.bind(this));
+    gear.setScrollFactor(0);
   }
 
   //
@@ -130,6 +131,7 @@ export class BaseScene extends Phaser.Scene {
     Align.center(this.soundPanel, this);
     this.soundPanel.visible = false;
     this.soundPanel.depth = 2000;
+    this.soundPanel.setScrollFactor(0);
   }
 
   //

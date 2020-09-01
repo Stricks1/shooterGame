@@ -56,6 +56,9 @@ export class Clock extends UIBlock {
         this.emitter.on("START_TIME", this.startClock.bind(this));
         this.emitter.on("RESET_TIME", this.resetClock.bind(this));
     }
+    getClockTime() {
+        return this.secs;
+    }
     startClock() {
         this.timer = this.scene.time.addEvent({
             delay: 1000,
