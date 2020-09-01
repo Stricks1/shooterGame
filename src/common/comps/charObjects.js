@@ -28,6 +28,23 @@ export class Ink extends CharObject {
   }
 }
 
+export class Light extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+
+    this.setData('speed', 320);
+    this.setGravityY(0);
+  }
+
+  boltLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  boltRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+}
+
 export class Player extends CharObject {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);
@@ -196,6 +213,15 @@ export class AgroFish extends CharObject {
 
     this.setData('speed', 180);
     this.setData('life', 2);
+    this.setData('shoot', true);
+  }
+
+  shootAgain() {
+    this.setData('shoot', true);
+  }
+
+  shootDone() {
+    this.setData('shoot', false);
   }
 
   moveLeft() {

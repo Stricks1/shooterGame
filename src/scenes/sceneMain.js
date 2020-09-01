@@ -18,6 +18,7 @@ import {
   Player,
   Dolphin,
   Ink,
+  Light,
   Whale,
   Jelly,
   AgroFish,
@@ -329,6 +330,32 @@ export class SceneMain extends BaseScene {
     this.mm.playSound('smb_bump');
   }
 
+  lightColliders(agroFish, light) {
+    this.mm.playSound('enemy_shoot');
+    this.physics.add.collider(light, this.player, () => { this.gameOver(false); });
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        if (agroFish.body.velocity.x > 0) {
+          agroFish.anims.play('agroright', true);
+        } else {
+          agroFish.anims.play('agroleft', true);
+        }
+      },
+      callbackScope: this,
+      loop: false,
+    });
+    this.time.addEvent({
+      delay: 3000,
+      callback: () => {
+        agroFish.shootAgain();
+        light.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
+  }
+
   update() {
     if (this.cursors.left.isDown) {
       this.player.moveLeft();
@@ -407,8 +434,20 @@ export class SceneMain extends BaseScene {
         agro.moveRight();
         agro.anims.play('agroright', true);
       }
-//      console.log(this.sys.game.distanceBetween(this.player, agro));
-      console.log(this.physics.world);
+      if ((agro.x - this.player.x > -600) && (agro.x - this.player.x < 600)) {
+        if (agro.getData('shoot')) {
+          agro.shootDone();
+          const light = new Light(this, (agro.x), agro.y, 'light');
+          if (agro.x - this.player.x < 0) {
+            agro.anims.play('shootright', true);
+            light.boltRight();
+          } else {
+            agro.anims.play('shootleft', true);
+            light.boltLeft();
+          }
+          this.lightColliders(agro, light);
+        }
+      }
     }, this);
   }
 }
