@@ -49,7 +49,7 @@ export class SceneLoad extends BaseScene {
     //
     // game png
     //
-    const pngArray = ['panelBack', 'title', 'far'];
+    const pngArray = ['panelBack', 'title'];
     for (let i = 0; i < pngArray.length; i += 1) {
       this.loadPng(pngArray[i], this.imagePath);
     }
@@ -77,7 +77,7 @@ export class SceneLoad extends BaseScene {
     //
     // common wav
     //
-    const cwavArray = ['smw_jump', 'smb_bump'];
+    const cwavArray = ['smw_jump', 'smb_bump', 'enemy_hit', 'enemy_death', 'game_over'];
     for (let i = 0; i < cwavArray.length; i += 1) {
       this.loadWav(cwavArray[i]);
     }

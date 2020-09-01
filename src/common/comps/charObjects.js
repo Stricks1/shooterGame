@@ -119,3 +119,74 @@ export class Dolphin extends CharObject {
     });
   }
 }
+
+
+export class Whale extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 80);
+    this.setData('life', 3);
+  }
+
+  moveLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  moveRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+
+  gotHit() {
+    let life = this.getData('life');
+    life -= 1;
+    this.setData('life', life);
+    if (life === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'whaleright',
+      frames: this.scene.anims.generateFrameNumbers('whale', { start: 0, end: 9 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'whaleleft',
+      frames: this.scene.anims.generateFrameNumbers('whale', { start: 10, end: 19 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+  }
+}
+
+
+export class Jelly extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 200);
+  }
+
+  moveUp() {
+    this.body.velocity.y = -this.getData('speed');
+  }
+
+  moveDown() {
+    this.body.velocity.y = this.getData('speed');
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'jellymove',
+      frames: this.scene.anims.generateFrameNumbers('jelly', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+  }
+}

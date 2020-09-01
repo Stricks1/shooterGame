@@ -9,8 +9,16 @@ import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
 import ink from '../../assets/images/inkOct.png';
+import whale from '../../assets/images/bluewhaleLR.png';
+import jelly from '../../assets/images/jelly.png';
 import { AlignGrid } from '../common/util/alignGrid';
-import { Player, Dolphin, Ink } from '../common/comps/charObjects';
+import {
+  Player,
+  Dolphin,
+  Ink,
+  Whale,
+  Jelly,
+} from '../common/comps/charObjects';
 import { Clock } from '../common/comps/clock';
 
 //
@@ -35,6 +43,8 @@ export class SceneMain extends BaseScene {
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
     this.load.spritesheet('dolphin', dolp, { frameWidth: 64, frameHeight: 30 });
     this.load.spritesheet('ink', ink, { frameWidth: 17, frameHeight: 15 });
+    this.load.spritesheet('whale', whale, { frameWidth: 64, frameHeight: 33 });
+    this.load.spritesheet('jelly', jelly, { frameWidth: 28, frameHeight: 25 });
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
@@ -72,17 +82,30 @@ export class SceneMain extends BaseScene {
     this.physics.world.setBounds(0, 0,
       this.sys.game.config.width * 10, this.sys.game.config.height);
 
-    this.placeWall(845, 'enWall');
-    this.placeWall(855, 'enWall');
-    this.placeWall(723, 'enWall');
-    this.placeWall(730, 'enWall');
-
-    // create first enemy
+    // Enemy creations
+    // create dolphin
     this.dolphinsGroup = this.physics.add.group();
     this.createDolphin(725);
+    this.placeWall(723, 'enWall');
+    this.placeWall(730, 'enWall');
     this.createDolphin(848);
-
+    this.placeWall(845, 'enWall');
+    this.placeWall(855, 'enWall');
     this.physics.add.collider(this.dolphinsGroup, this.enWallGroup);
+
+    // create whales
+    this.whalesGroup = this.physics.add.group();
+    this.createWhale(367);
+    this.placeWall(364, 'enWall');
+    this.placeWall(370, 'enWall');
+    this.physics.add.collider(this.whalesGroup, this.enWallGroup);
+
+    // create jelly
+    this.jellysGroup = this.physics.add.group();
+  //  this.createJelly(67);
+  //  this.placeWall(34, 'enWall');
+  //  this.placeWall(30, 'enWall');
+    this.physics.add.collider(this.jellyGroup, this.enWallGroup);
 
     // create main character
     this.player = new Player(this, 100, 450, 'hero');
@@ -90,6 +113,7 @@ export class SceneMain extends BaseScene {
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.brickGroup);
     this.physics.add.collider(this.player, this.dolphinsGroup, () => { this.gameOver(false); });
+    this.physics.add.collider(this.player, this.whalesGroup, () => { this.gameOver(false); });
     this.player.animation();
 
     this.anims.create({
@@ -103,12 +127,13 @@ export class SceneMain extends BaseScene {
 
     //
     //
-    // this.blockGrid.showNumbers();
+    this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
 
   gameOver(finish) {
+    this.mm.playSound('game_over');
     this.mm.background.stop();
     if (finish) {
       console.log('calculate points on time');
@@ -126,7 +151,31 @@ export class SceneMain extends BaseScene {
     dolph.moveRight();
     this.blockGrid.placeAtIndex(place, dolph);
     dolph.animation();
+    dolph.anims.play('dolright');
   }
+
+  createWhale(place) {
+    const whale = new Whale(this, 0, 0, 'whale');
+    this.whalesGroup.add(whale);
+    whale.moveRight();
+    this.blockGrid.placeAtIndex(place, whale);
+    Align.scaleToGameW(whale, 0.25, this);
+    whale.body.setSize(whale.width, whale.height / 1.5, false);
+    whale.animation();
+    whale.anims.play('whaleright');
+  }
+
+  createJelly(place) {
+    const jelly = new Jelly(this, 0, 0, 'jelly');
+    this.jellysGroup.add(jelly);
+    jelly.moveUp();
+    this.blockGrid.placeAtIndex(place, whale);
+//    Align.scaleToGameW(whale, 0.25, this);
+//    whale.body.setSize(whale.width, whale.height / 1.5, false);
+    jelly.animation();
+    jelly.anims.play('jellymove');
+  }
+
 
   backGroundAlign(totalWidth, texture, texture2, scrollFactor) {
     const w = this.textures.get(texture).getSourceImage().width;
@@ -204,8 +253,20 @@ export class SceneMain extends BaseScene {
     this.physics.add.collider(shoot, this.dolphinsGroup, (shoot, dolphin) => {
       shoot.destroy();
       dolphin.destroy();
+      this.mm.playSound('enemy_death');
       this.scorePoints += 10;
       this.scoreLabel.text = `Score: ${this.scorePoints}`;
+    });
+    this.physics.add.collider(shoot, this.whalesGroup, (shoot, whale) => {
+      shoot.destroy();
+      if (whale.gotHit()) {
+        whale.destroy();
+        this.mm.playSound('enemy_death');
+        this.scorePoints += 35;
+        this.scoreLabel.text = `Score: ${this.scorePoints}`;
+      } else {
+        this.mm.playSound('enemy_hit');
+      }
     });
     this.physics.add.collider(shoot, this.brickGroup, (shoot) => {
       shoot.destroy();
@@ -266,6 +327,24 @@ export class SceneMain extends BaseScene {
       } else if (dolphin.body.touching.left || dolphin.body.blocked.left) {
         dolphin.moveRight();
         dolphin.anims.play('dolright', true);
+      }
+    }, this);
+
+    this.whalesGroup.getChildren().forEach((whale) => {
+      if (whale.body.touching.right || whale.body.blocked.right) {
+        whale.moveLeft();
+        whale.anims.play('whaleleft', true);
+      } else if (whale.body.touching.left || whale.body.blocked.left) {
+        whale.moveRight();
+        whale.anims.play('whaleright', true);
+      }
+    }, this);
+
+    this.jellysGroup.getChildren().forEach((jelly) => {
+      if (jelly.body.touching.up || jelly.body.blocked.up) {
+        jelly.moveDown();
+      } else if (jelly.body.touching.down || jelly.body.blocked.down) {
+        jelly.moveUp();
       }
     }, this);
   }
