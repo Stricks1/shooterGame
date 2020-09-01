@@ -9,8 +9,10 @@ import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
 import ink from '../../assets/images/inkOct.png';
+import enemyshoot from '../../assets/images/light.png';
 import whale from '../../assets/images/bluewhaleLR.png';
 import jelly from '../../assets/images/jelly.png';
+import agroFish from '../../assets/images/agroFish.png';
 import { AlignGrid } from '../common/util/alignGrid';
 import {
   Player,
@@ -18,6 +20,7 @@ import {
   Ink,
   Whale,
   Jelly,
+  AgroFish,
 } from '../common/comps/charObjects';
 import { Clock } from '../common/comps/clock';
 
@@ -43,8 +46,10 @@ export class SceneMain extends BaseScene {
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
     this.load.spritesheet('dolphin', dolp, { frameWidth: 64, frameHeight: 30 });
     this.load.spritesheet('ink', ink, { frameWidth: 17, frameHeight: 15 });
+    this.load.spritesheet('light', enemyshoot, { frameWidth: 15, frameHeight: 15 });
     this.load.spritesheet('whale', whale, { frameWidth: 64, frameHeight: 33 });
     this.load.spritesheet('jelly', jelly, { frameWidth: 28, frameHeight: 25 });
+    this.load.spritesheet('agrofish', agroFish, { frameWidth: 29, frameHeight: 26 });
     this.cursors = this.input.keyboard.createCursorKeys();
     this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
@@ -61,7 +66,7 @@ export class SceneMain extends BaseScene {
       cols: 120,
       width: 800 * 10,
     });
-    // show numbers for layout and debugging
+    //
     //
     this.brickGroup = this.physics.add.group();
     this.enWallGroup = this.physics.add.group();
@@ -107,6 +112,13 @@ export class SceneMain extends BaseScene {
     this.placeWall(1220, 'enWall');
     this.physics.add.collider(this.jellysGroup, this.enWallGroup);
 
+    // create agroFish
+    this.agroFishesGroup = this.physics.add.group();
+    this.createAgroFish(615);
+    this.placeWall(612, 'enWall');
+    this.placeWall(618, 'enWall');
+    this.physics.add.collider(this.agroFishesGroup, this.enWallGroup);
+
     // create main character
     this.player = new Player(this, 100, 450, 'hero');
     this.blockGrid.placeAtIndex(961, this.player);
@@ -115,6 +127,7 @@ export class SceneMain extends BaseScene {
     this.physics.add.collider(this.player, this.dolphinsGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.whalesGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.jellysGroup, () => { this.gameOver(false); });
+    this.physics.add.collider(this.player, this.agroFishesGroup, () => { this.gameOver(false); });
     this.player.animation();
 
     this.anims.create({
@@ -124,11 +137,18 @@ export class SceneMain extends BaseScene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'light',
+      frames: [{ key: 'light', frame: 0 }],
+      frameRate: 10,
+      repeat: -1,
+    });
+
     this.cameras.main.startFollow(this.player);
 
     //
     //
-    // this.blockGrid.showNumbers();
+    this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -159,6 +179,7 @@ export class SceneMain extends BaseScene {
   createWhale(place) {
     const whale = new Whale(this, 0, 0, 'whale');
     this.whalesGroup.add(whale);
+    whale.setImmovable();
     whale.moveRight();
     this.blockGrid.placeAtIndex(place, whale);
     Align.scaleToGameW(whale, 0.25, this);
@@ -175,6 +196,17 @@ export class SceneMain extends BaseScene {
     Align.scaleToGameW(jelly, 0.05, this);
     jelly.animation();
     jelly.anims.play('jellymove');
+  }
+
+  createAgroFish(place) {
+    const agro = new AgroFish(this, 0, 0, 'agroFish');
+    this.agroFishesGroup.add(agro);
+    agro.setImmovable();
+    agro.moveRight();
+    this.blockGrid.placeAtIndex(place, agro);
+    Align.scaleToGameW(agro, 0.075, this);
+    agro.animation();
+    agro.anims.play('agroright');
   }
 
 
@@ -276,6 +308,17 @@ export class SceneMain extends BaseScene {
         this.mm.playSound('enemy_hit');
       }
     });
+    this.physics.add.collider(shoot, this.agroFishesGroup, (shoot, agro) => {
+      shoot.destroy();
+      if (agro.gotHit()) {
+        agro.destroy();
+        this.mm.playSound('enemy_death');
+        this.scorePoints += 50;
+        this.scoreLabel.text = `Score: ${this.scorePoints}`;
+      } else {
+        this.mm.playSound('enemy_hit');
+      }
+    });
     this.physics.add.collider(shoot, this.brickGroup, (shoot) => {
       shoot.destroy();
     });
@@ -354,6 +397,18 @@ export class SceneMain extends BaseScene {
       } else if (jelly.body.touching.down || jelly.body.blocked.down) {
         jelly.moveUp();
       }
+    }, this);
+
+    this.agroFishesGroup.getChildren().forEach((agro) => {
+      if (agro.body.touching.right || agro.body.blocked.right) {
+        agro.moveLeft();
+        agro.anims.play('agroleft', true);
+      } else if (agro.body.touching.left || agro.body.blocked.left) {
+        agro.moveRight();
+        agro.anims.play('agroright', true);
+      }
+//      console.log(this.sys.game.distanceBetween(this.player, agro));
+      console.log(this.physics.world);
     }, this);
   }
 }

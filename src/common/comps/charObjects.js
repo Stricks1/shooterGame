@@ -8,8 +8,6 @@ export class CharObject extends Phaser.Physics.Arcade.Sprite {
     this.scene = scene;
     this.scene.add.existing(this);
     this.scene.physics.world.enableBody(this, 0);
-    this.setData('isAgro', false);
-    this.setData('isDead', false);
   }
 }
 
@@ -186,6 +184,61 @@ export class Jelly extends CharObject {
       key: 'jellymove',
       frames: this.scene.anims.generateFrameNumbers('jelly', { start: 0, end: 3 }),
       frameRate: 10,
+      repeat: -1,
+    });
+  }
+}
+
+export class AgroFish extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 180);
+    this.setData('life', 2);
+  }
+
+  moveLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  moveRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+
+  gotHit() {
+    let life = this.getData('life');
+    life -= 1;
+    this.setData('life', life);
+    if (life === 0) {
+      return true;
+    }
+    return false;
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'agroright',
+      frames: this.scene.anims.generateFrameNumbers('agrofish', { start: 0, end: 3 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'agroleft',
+      frames: this.scene.anims.generateFrameNumbers('agrofish', { start: 4, end: 7 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'shootleft',
+      frames: [{ key: 'agrofish', frame: 8 }],
+      frameRate: 20,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'shootright',
+      frames: [{ key: 'agrofish', frame: 9 }],
+      frameRate: 20,
       repeat: -1,
     });
   }

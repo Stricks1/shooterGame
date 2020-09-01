@@ -77,7 +77,7 @@ export class SceneLoad extends BaseScene {
     //
     // common wav
     //
-    const cwavArray = ['smw_jump', 'smb_bump', 'enemy_hit', 'enemy_death', 'game_over'];
+    const cwavArray = ['smw_jump', 'smb_bump', 'enemy_hit', 'enemy_death', 'game_over', 'enemy_shoot'];
     for (let i = 0; i < cwavArray.length; i += 1) {
       this.loadWav(cwavArray[i]);
     }
