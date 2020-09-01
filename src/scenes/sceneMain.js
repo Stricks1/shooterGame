@@ -103,7 +103,7 @@ export class SceneMain extends BaseScene {
 
     // create lever
     this.lever = this.physics.add.sprite(0, 0, 'lever');
-    this.blockGrid.placeAtIndex(1082, this.lever);
+    this.blockGrid.placeAtIndex(1198, this.lever);
     Align.scaleToGameW(this.lever, 0.075, this);
     this.lever.setImmovable();
 
@@ -131,7 +131,6 @@ export class SceneMain extends BaseScene {
     this.makeFloor(822, 832, 'ground3');
     this.makeFloor(595, 595, 'ground3');
 
-
     // floor
     this.makeFloor(1200, 1319, 'ground1');
 
@@ -144,6 +143,24 @@ export class SceneMain extends BaseScene {
     this.createDolphin(848);
     this.placeWall(845, 'enWall');
     this.placeWall(855, 'enWall');
+    this.createDolphin(985);
+    this.placeWall(983, 'enWall');
+    this.placeWall(991, 'enWall');
+    this.createDolphin(423);
+    this.placeWall(420, 'enWall');
+    this.placeWall(426, 'enWall');
+    this.createDolphin(665);
+    this.placeWall(663, 'enWall');
+    this.placeWall(668, 'enWall');
+    this.createDolphin(1061);
+    this.placeWall(1058, 'enWall');
+    this.placeWall(1063, 'enWall');
+    this.createDolphin(836);
+    this.placeWall(834, 'enWall');
+    this.placeWall(839, 'enWall');
+    this.createDolphin(1077);
+    this.placeWall(1075, 'enWall');
+    this.placeWall(1079, 'enWall');
     this.physics.add.collider(this.dolphinsGroup, this.enWallGroup);
 
     // create whales
@@ -151,6 +168,12 @@ export class SceneMain extends BaseScene {
     this.createWhale(367);
     this.placeWall(364, 'enWall');
     this.placeWall(370, 'enWall');
+    this.createWhale(266);
+    this.placeWall(263, 'enWall');
+    this.placeWall(270, 'enWall');
+    this.createWhale(215);
+    this.placeWall(210, 'enWall');
+    this.placeWall(220, 'enWall');
     this.physics.add.collider(this.whalesGroup, this.enWallGroup);
 
     // create jelly
@@ -158,6 +181,18 @@ export class SceneMain extends BaseScene {
     this.createJelly(620);
     this.placeWall(140, 'enWall');
     this.placeWall(1220, 'enWall');
+    this.createJelly(879);
+    this.placeWall(639, 'enWall');
+    this.placeWall(1119, 'enWall');
+    this.createJelly(439);
+    this.placeWall(79, 'enWall');
+    this.placeWall(799, 'enWall');
+    this.createJelly(820);
+    this.placeWall(460, 'enWall');
+    this.placeWall(1180, 'enWall');
+    this.createJelly(355);
+    this.placeWall(115, 'enWall');
+    this.placeWall(595, 'enWall');
     this.physics.add.collider(this.jellysGroup, this.enWallGroup);
 
     // create agroFish
@@ -165,6 +200,21 @@ export class SceneMain extends BaseScene {
     this.createAgroFish(615);
     this.placeWall(612, 'enWall');
     this.placeWall(618, 'enWall');
+    this.createAgroFish(400);
+    this.placeWall(396, 'enWall');
+    this.placeWall(410, 'enWall');
+    this.createAgroFish(433);
+    this.placeWall(430, 'enWall');
+    this.placeWall(438, 'enWall');
+    this.createAgroFish(808);
+    this.placeWall(805, 'enWall');
+    this.placeWall(812, 'enWall');
+    this.createAgroFish(1166);
+    this.placeWall(1161, 'enWall');
+    this.placeWall(1170, 'enWall');
+    this.createAgroFish(1194);
+    this.placeWall(1190, 'enWall');
+    this.placeWall(1198, 'enWall');
     this.physics.add.collider(this.agroFishesGroup, this.enWallGroup);
 
     // create main character
@@ -205,7 +255,7 @@ export class SceneMain extends BaseScene {
 
     //
     //
-    this.blockGrid.showNumbers();
+    //this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -393,7 +443,7 @@ export class SceneMain extends BaseScene {
         this.mm.playSound('enemy_hit');
       }
     });
-    this.physics.add.collider(shoot, this.lever, () => { 
+    this.physics.add.collider(shoot, this.lever, () => {
       this.lever.anims.play('leverDown');
       this.door1.destroy();
       this.door2.destroy();
@@ -514,7 +564,7 @@ export class SceneMain extends BaseScene {
         agro.moveRight();
         agro.anims.play('agroright', true);
       }
-      if ((agro.x - this.player.x > -600) && (agro.x - this.player.x < 600)) {
+      if ((agro.x - this.player.x > -500) && (agro.x - this.player.x < 500)) {
         if (agro.getData('shoot')) {
           agro.shootDone();
           const light = new Light(this, (agro.x), agro.y, 'light');
