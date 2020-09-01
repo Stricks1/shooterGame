@@ -5,6 +5,8 @@ import bgr2 from '../../assets/images/sand.png';
 import bgr3 from '../../assets/images/foreground-1.png';
 import bgr32 from '../../assets/images/foreground-2.png';
 import ground1 from '../../assets/images/tiles-sand-coral.png';
+import ground2 from '../../assets/images/tiles-rock.png';
+import chest from '../../assets/images/chest.png';
 import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
@@ -43,6 +45,8 @@ export class SceneMain extends BaseScene {
     this.load.image('bkgr3', bgr3);
     this.load.image('bkgr32', bgr32);
     this.load.image('ground1', ground1);
+    this.load.image('ground2', ground2);
+    this.load.image('chest', chest);
     this.load.image('enWall', enWall);
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
     this.load.spritesheet('dolphin', dolp, { frameWidth: 64, frameHeight: 30 });
@@ -85,6 +89,12 @@ export class SceneMain extends BaseScene {
 
     this.cameras.main.setBounds(0, 0, this.sys.game.config.width * 10, this.sys.game.config.height);
     this.makeFloor(1200, 1319, 'ground1');
+
+    // create chest endGame
+    this.makeFloor(357, 359, 'ground2');
+    const chest = this.physics.add.sprite(0, 0, 'chest');
+    this.blockGrid.placeAtIndex(1076, chest);
+    chest.setGravityY(100);
     this.physics.world.setBounds(0, 0,
       this.sys.game.config.width * 10, this.sys.game.config.height);
 
