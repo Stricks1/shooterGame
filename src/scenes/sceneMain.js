@@ -80,21 +80,9 @@ export class SceneMain extends BaseScene {
 
     // create first enemy
     this.dolphinsGroup = this.physics.add.group();
-    this.dolph1 = new Dolphin(this, 0, 0, 'dolphin');
-    this.dolphinsGroup.add(this.dolph1);
-    this.dolph1.moveRight();
-    this.blockGrid.placeAtIndex(848, this.dolph1);
-    this.dolph1.animation();
+    this.createDolphin(725);
+    this.createDolphin(848);
 
-
-    this.dolph2 = new Dolphin(this, 0, 0, 'dolphin');
-    this.dolphinsGroup.add(this.dolph2);
-    this.dolph2.moveRight();
-    this.blockGrid.placeAtIndex(725, this.dolph2);
-    this.dolph2.animation();
-
-
-    this.dolph1.anims.play('dolright', true);
     this.physics.add.collider(this.dolphinsGroup, this.enWallGroup);
 
     // create main character
@@ -121,14 +109,22 @@ export class SceneMain extends BaseScene {
   }
 
   gameOver(finish) {
+    this.mm.background.stop();
     if (finish) {
       console.log('calculate points on time');
     } else {
-      this.player.body.destroy();
       this.emitter.emit('STOP_TIME');
       this.scene.start('SceneLoad');
       // load sceneOver;
     }
+  }
+
+  createDolphin(place) {
+    const dolph = new Dolphin(this, 0, 0, 'dolphin');
+    this.dolphinsGroup.add(dolph);
+    dolph.moveRight();
+    this.blockGrid.placeAtIndex(place, dolph);
+    dolph.animation();
   }
 
   backGroundAlign(totalWidth, texture, texture2, scrollFactor) {
@@ -174,7 +170,6 @@ export class SceneMain extends BaseScene {
     block.setImmovable();
     Align.scaleToGameW(block, 0.1, this);
   }
-
 
   makeUi() {
     super.makeSoundPanel();
@@ -243,14 +238,14 @@ export class SceneMain extends BaseScene {
     if (this.keySpace.isDown) {
       if (this.cursors.left.timeDown > this.cursors.right.timeDown) {
         if ((this.player.getData('inkTime') + 300) < this.keySpace.timeDown) {
-          const ink = new Ink(this, (this.player.x - 43), this.player.y, 'ink');
+          const ink = new Ink(this, (this.player.x), this.player.y, 'ink');
           ink.inkLeft();
           this.inkColliders(ink);
           this.inkAnimation(ink);
           this.player.setData('inkTime', this.keySpace.timeDown);
         }
       } else if ((this.player.getData('inkTime') + 300) < this.keySpace.timeDown) {
-        const ink = new Ink(this, (this.player.x + 43), this.player.y, 'ink');
+        const ink = new Ink(this, (this.player.x), this.player.y, 'ink');
         ink.inkRight();
         this.inkColliders(ink);
         this.inkAnimation(ink);
