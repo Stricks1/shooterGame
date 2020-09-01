@@ -8,8 +8,9 @@ import ground1 from '../../assets/images/tiles-sand-coral.png';
 import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
+import ink from '../../assets/images/inkOct.png';
 import { AlignGrid } from '../common/util/alignGrid';
-import { Player, Dolphin } from '../common/comps/charObjects';
+import { Player, Dolphin, Ink } from '../common/comps/charObjects';
 import { ScoreBox } from '../common/comps/scoreBox';
 import { Clock } from '../common/comps/clock';
 
@@ -17,6 +18,8 @@ import { Clock } from '../common/comps/clock';
 //
 //
 
+/* eslint-disable no-undef */
+/* eslint-disable class-methods-use-this */
 // eslint-disable-next-line import/prefer-default-export
 export class SceneMain extends BaseScene {
   constructor() {
@@ -32,7 +35,9 @@ export class SceneMain extends BaseScene {
     this.load.image('enWall', enWall);
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
     this.load.spritesheet('dolphin', dolp, { frameWidth: 64, frameHeight: 30 });
+    this.load.spritesheet('ink', ink, { frameWidth: 17, frameHeight: 15 });
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
 
   create() {
@@ -70,27 +75,24 @@ export class SceneMain extends BaseScene {
 
     this.placeWall(845, 'enWall');
     this.placeWall(855, 'enWall');
+    this.placeWall(723, 'enWall');
+    this.placeWall(730, 'enWall');
 
     // create first enemy
     this.dolphinsGroup = this.physics.add.group();
-    this.dolph1 = new Dolphin(this, 200, 350, 'dolphin');
+    this.dolph1 = new Dolphin(this, 0, 0, 'dolphin');
     this.dolphinsGroup.add(this.dolph1);
     this.dolph1.moveRight();
     this.blockGrid.placeAtIndex(848, this.dolph1);
+    this.dolph1.animation();
 
-    this.anims.create({
-      key: 'dolright',
-      frames: this.anims.generateFrameNumbers('dolphin', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
 
-    this.anims.create({
-      key: 'dolleft',
-      frames: this.anims.generateFrameNumbers('dolphin', { start: 4, end: 7 }),
-      frameRate: 10,
-      repeat: -1,
-    });
+    this.dolph2 = new Dolphin(this, 0, 0, 'dolphin');
+    this.dolphinsGroup.add(this.dolph2);
+    this.dolph2.moveRight();
+    this.blockGrid.placeAtIndex(725, this.dolph2);
+    this.dolph2.animation();
+
 
     this.dolph1.anims.play('dolright', true);
     this.physics.add.collider(this.dolphinsGroup, this.enWallGroup);
@@ -100,32 +102,33 @@ export class SceneMain extends BaseScene {
     this.blockGrid.placeAtIndex(961, this.player);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.brickGroup);
+    this.physics.add.collider(this.player, this.dolphinsGroup, () => { this.gameOver(false); });
+    this.player.animation();
 
     this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 1 }),
+      key: 'ink',
+      frames: this.anims.generateFrameNumbers('ink', { start: 0, end: 2 }),
       frameRate: 10,
       repeat: -1,
     });
 
-    this.anims.create({
-      key: 'turn',
-      frames: [{ key: 'hero', frame: 4 }],
-      frameRate: 20,
-    });
-
-    this.anims.create({
-      key: 'right',
-      frames: this.anims.generateFrameNumbers('hero', { start: 2, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
     this.cameras.main.startFollow(this.player);
 
     //
     //
-    this.blockGrid.showNumbers();
+    // this.blockGrid.showNumbers();
     this.makeUi();
+  }
+
+  gameOver(finish) {
+    if (finish) {
+      console.log('calculate points on time');
+    } else {
+      this.player.body.destroy();
+      this.emitter.emit('STOP_TIME');
+      this.scene.start('SceneLoad');
+      // load sceneOver;
+    }
   }
 
   backGroundAlign(totalWidth, texture, texture2, scrollFactor) {
@@ -181,15 +184,12 @@ export class SceneMain extends BaseScene {
     this.placeAtIndex(1, this.scoreBox);
     this.scoreBox.setScrollFactor(0);
 
-    this.emitter.emit('UP_POINTS', 5);
-
     this.clock = new Clock({
       scene: this,
       callback: this.timeUp.bind(this),
     });
     this.placeAtIndex(9, this.clock);
     this.clock.setClock(600);
-    console.log(this.clock.getClockTime());
     this.clock.startClock();
     this.clock.setScrollFactor(0);
   }
@@ -197,9 +197,23 @@ export class SceneMain extends BaseScene {
   // eslint-disable-next-line class-methods-use-this
   timeUp() {
     // endGame by clock
-    // this.emitter.emit('UP_POINTS', 4);
-    this.emitter.emit('STOP_TIME');
-    // this.scene.start('SceneOver');
+    this.gameOver(false);
+  }
+
+  inkColliders(shoot) {
+    this.physics.add.collider(shoot, this.dolphinsGroup, (shoot, dolphin) => {
+      shoot.destroy();
+      dolphin.destroy();
+      this.emitter.emit('UP_POINTS', 10);
+    });
+    this.physics.add.collider(shoot, this.brickGroup, (shoot) => {
+      shoot.destroy();
+    });
+  }
+
+  inkAnimation(shoot) {
+    shoot.anims.play('ink');
+    this.mm.playSound('smb_bump');
   }
 
   update() {
@@ -224,6 +238,24 @@ export class SceneMain extends BaseScene {
 
     if (this.cursors.up.isDown && this.player.getData('dbJump')) {
       this.player.jump(this.cursors.up, this);
+    }
+
+    if (this.keySpace.isDown) {
+      if (this.cursors.left.timeDown > this.cursors.right.timeDown) {
+        if ((this.player.getData('inkTime') + 300) < this.keySpace.timeDown) {
+          const ink = new Ink(this, (this.player.x - 43), this.player.y, 'ink');
+          ink.inkLeft();
+          this.inkColliders(ink);
+          this.inkAnimation(ink);
+          this.player.setData('inkTime', this.keySpace.timeDown);
+        }
+      } else if ((this.player.getData('inkTime') + 300) < this.keySpace.timeDown) {
+        const ink = new Ink(this, (this.player.x + 43), this.player.y, 'ink');
+        ink.inkRight();
+        this.inkColliders(ink);
+        this.inkAnimation(ink);
+        this.player.setData('inkTime', this.keySpace.timeDown);
+      }
     }
 
     this.dolphinsGroup.getChildren().forEach((dolphin) => {
