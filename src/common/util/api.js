@@ -10,11 +10,16 @@ const Api = (() => {
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            mode: 'cors',
           },
         },
       );
+      console.log('here')
+      console.log(scores);
       return scores.json();
     } catch (error) {
+      console.log('her2e')
+      console.log(error);
       return error.json();
     }
   }

@@ -1,11 +1,10 @@
 import { BaseScene } from './baseScene';
+import { Align } from '../common/util/align';
 import Button from '../common/ui/button';
-import Api from '../common/util/api';
-
 // eslint-disable-next-line import/prefer-default-export
-export class SceneLeaderboard extends BaseScene {
+export class SceneInstructions extends BaseScene {
   constructor() {
-    super('SceneLeaderboard');
+    super('SceneInstructions');
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -19,20 +18,19 @@ export class SceneLeaderboard extends BaseScene {
     //
     //
     this.makeAlignGrid(11, 11);
-    // this.aGrid.showNumbers();
+     this.aGrid.showNumbers();
     //
     //
     //
     //  this.placeImage('title', 27, .8);
-    this.placeText('LEADERBOARD', 16, 'TITLE_TEXT');
     //
     //
-    //  CHECK WHY API STOPPED WORKING
-    /*
-    Api.setScores('Gabriel', 450).then((response) => {
-      console.log(response);
-    });
-    */
+    const whiteBg = this.add.image(0, 0, 'panelBack');
+    Align.scaleToGameW(whiteBg, 0.9, this);
+    this.aGrid.placeAtIndex(60, whiteBg);
+
+    this.placeText('INSTRUCTIONS', 14, 'TITLE_TEXT');
+
     this.returnBtn = new Button(
       this,
       'btn1',
