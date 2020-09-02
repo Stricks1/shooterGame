@@ -1,6 +1,8 @@
 import { BaseScene } from './baseScene';
 import { Bar } from '../common/comps/bar';
 import { Align } from '../common/util/align';
+import btn1 from '../../assets/images/ui/buttons/1/2.png';
+import btnH1 from '../../assets/images/ui/buttons/2/2.png';
 
 // eslint-disable-next-line import/prefer-default-export
 export class SceneLoad extends BaseScene {
@@ -12,6 +14,8 @@ export class SceneLoad extends BaseScene {
     this.common = './assets/';
     this.imagePath = `${this.common}images/`;
     this.audioPath = `${this.common}audio/`;
+    this.load.image('btn1', btn1);
+    this.load.image('btnH1', btnH1);
     /**
      *
      * make the loading bars
@@ -39,21 +43,21 @@ export class SceneLoad extends BaseScene {
      *LOAD THE ASSETS
      *
      */
-    const iconArray = ['gear', 'musicOff', 'musicOn', 'sfxOn', 'sfxOff', 'iconLock', 'iconHome', 'iconNext', 'iconPrev'];
+    const iconArray = ['gear', 'musicOff', 'musicOn', 'sfxOn', 'sfxOff'];
     for (let i = 0; i < iconArray.length; i += 1) {
       this.loadIcon(iconArray[i]);
     }
     //
     // game png
     //
-    const pngArray = ['panelBack', 'title'];
+    const pngArray = ['panelBack'];
     for (let i = 0; i < pngArray.length; i += 1) {
       this.loadPng(pngArray[i], this.imagePath);
     }
     //
     // game jpg
     //
-    const jpgArray = ['sky'];
+    const jpgArray = ['seaBg'];
     for (let i = 0; i < jpgArray.length; i += 1) {
       this.loadJpg(jpgArray[i], this.imagePath);
     }
