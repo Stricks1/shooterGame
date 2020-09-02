@@ -266,6 +266,7 @@ export class SceneMain extends BaseScene {
     this.physics.add.collider(this.player, this.whalesGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.jellysGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, this.agroFishesGroup, () => { this.gameOver(false); });
+    this.physics.add.collider(this.player, this.seaHorsesGroup, () => { this.gameOver(false); });
     this.physics.add.collider(this.player, chest, () => { this.gameOver(true); });
     this.physics.add.collider(this.player, this.lever, () => {
       this.lever.anims.play('leverDown');
@@ -556,11 +557,6 @@ export class SceneMain extends BaseScene {
     });
   }
 
-  inkAnimation(shoot) {
-    shoot.anims.play('ink');
-    this.mm.playSound('smb_bump');
-  }
-
   lightColliders(agroFish, light) {
     this.mm.playSound('enemy_shoot');
     this.physics.add.collider(light, this.player, () => { this.gameOver(false); });
@@ -629,14 +625,14 @@ export class SceneMain extends BaseScene {
           const ink = new Ink(this, (this.player.x), this.player.y, 'ink');
           ink.inkLeft();
           this.inkColliders(ink);
-          this.inkAnimation(ink);
+          ink.inkAnimation();
           this.player.setData('inkTime', this.keySpace.timeDown);
         }
       } else if ((this.player.getData('inkTime') + 300) < this.keySpace.timeDown) {
         const ink = new Ink(this, (this.player.x), this.player.y, 'ink');
         ink.inkRight();
         this.inkColliders(ink);
-        this.inkAnimation(ink);
+        ink.inkAnimation();
         this.player.setData('inkTime', this.keySpace.timeDown);
       }
     }

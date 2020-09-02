@@ -26,6 +26,20 @@ export class Ink extends CharObject {
   inkRight() {
     this.body.velocity.x = this.getData('speed');
   }
+
+  inkAnimation() {
+    this.anims.play('ink');
+    this.scene.mm.playSound('smb_bump');
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'ink',
+      frames: this.scene.anims.generateFrameNumbers('ink', { start: 0, end: 2 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+  }
 }
 
 export class Light extends CharObject {
