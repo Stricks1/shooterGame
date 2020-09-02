@@ -45,6 +45,24 @@ export class Light extends CharObject {
   }
 }
 
+
+export class Bubble extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+
+    this.setData('speed', 300);
+    this.setGravityY(0);
+  }
+
+  bubbleLeft() {
+    this.body.velocity.x = -this.getData('speed');
+  }
+
+  bubbleRight() {
+    this.body.velocity.x = this.getData('speed');
+  }
+}
+
 export class Player extends CharObject {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);
@@ -61,10 +79,12 @@ export class Player extends CharObject {
 
   moveLeft() {
     this.body.velocity.x = -this.getData('speed');
+    this.anims.play('left', true);
   }
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+    this.anims.play('right', true);
   }
 
   jump(cursorUp, scene) {
@@ -113,10 +133,12 @@ export class Dolphin extends CharObject {
 
   moveLeft() {
     this.body.velocity.x = -this.getData('speed');
+    this.anims.play('dolleft', true);
   }
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+    this.anims.play('dolright', true);
   }
 
   animation() {
@@ -147,10 +169,12 @@ export class Whale extends CharObject {
 
   moveLeft() {
     this.body.velocity.x = -this.getData('speed');
+    this.anims.play('whaleleft', true);
   }
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+    this.anims.play('whaleright', true);
   }
 
   gotHit() {
@@ -190,6 +214,7 @@ export class Jelly extends CharObject {
 
   moveUp() {
     this.body.velocity.y = -this.getData('speed');
+    this.anims.play('jellymove', true);
   }
 
   moveDown() {
@@ -226,10 +251,12 @@ export class AgroFish extends CharObject {
 
   moveLeft() {
     this.body.velocity.x = -this.getData('speed');
+    this.anims.play('agroleft', true);
   }
 
   moveRight() {
     this.body.velocity.x = this.getData('speed');
+    this.anims.play('agroright', true);
   }
 
   gotHit() {
@@ -265,6 +292,50 @@ export class AgroFish extends CharObject {
       key: 'shootright',
       frames: [{ key: 'agrofish', frame: 9 }],
       frameRate: 20,
+      repeat: -1,
+    });
+  }
+}
+
+
+export class SeaHorse extends CharObject {
+  constructor(scene, x, y, key) {
+    super(scene, x, y, key);
+    this.scene = scene;
+
+    this.setData('speed', 130);
+    this.setData('shoot', true);
+  }
+
+  shootAgain() {
+    this.setData('shoot', true);
+  }
+
+  shootDone() {
+    this.setData('shoot', false);
+  }
+
+  moveLeft() {
+    this.body.velocity.x = -this.getData('speed');
+    this.anims.play('seaHorseleft', true);
+  }
+
+  moveRight() {
+    this.body.velocity.x = this.getData('speed');
+    this.anims.play('seaHorseright', true);
+  }
+
+  animation() {
+    this.scene.anims.create({
+      key: 'seaHorseright',
+      frames: this.scene.anims.generateFrameNumbers('seaHorse', { start: 0, end: 1 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.scene.anims.create({
+      key: 'seaHorseleft',
+      frames: this.scene.anims.generateFrameNumbers('seaHorse', { start: 2, end: 3 }),
+      frameRate: 10,
       repeat: -1,
     });
   }
