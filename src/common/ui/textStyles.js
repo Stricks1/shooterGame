@@ -146,7 +146,14 @@ export class TextStyles {
         this.styles['BLACK'] = {
             style: {
                 fontFamily: TextStyles.MAIN_FONT,
-                fontSize: TextStyles.SIZE_MED,
+                fontSize: TextStyles.SIZE_SMALL2,
+                color: "#000000"
+            }
+        };
+        this.styles['BLACK2'] = {
+            style: {
+                fontFamily: TextStyles.MAIN_FONT,
+                fontSize: TextStyles.SIZE_SMALL,
                 color: "#000000"
             }
         };

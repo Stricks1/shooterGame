@@ -13,7 +13,7 @@ export default class Button extends Phaser.GameObjects.Container {
     });
     // eslint-disable-next-line no-undef
     Phaser.Display.Align.In.Center(this.text, this.button);
-    Align.scaleToGameW(this.button, 0.35, scene);
+    Align.scaleToGameW(this.button, 0.32, scene);
 
     this.add(this.button);
     this.add(this.text);
@@ -24,12 +24,12 @@ export default class Button extends Phaser.GameObjects.Container {
 
     this.button.on('pointerover', () => {
       this.button.setTexture(key2);
-      Align.scaleToGameW(this.button, 0.4, this.scene);
+      Align.scaleToGameW(this.button, 0.37, this.scene);
     });
 
     this.button.on('pointerout', () => {
       this.button.setTexture(key1);
-      Align.scaleToGameW(this.button, 0.35, this.scene);
+      Align.scaleToGameW(this.button, 0.32, this.scene);
     });
 
     this.scene.add.existing(this);
