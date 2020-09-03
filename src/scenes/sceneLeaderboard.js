@@ -73,6 +73,9 @@ export class SceneLeaderboard extends BaseScene {
       } else {
         this.placeText(playersName1, 60, 'BLACK2');
       }
+    }).catch(() => {
+      loading.destroy();
+      this.placeText('Problem to connect with API\n          Try again later', 60, 'RED');
     });
 
     this.returnBtn = new Button(

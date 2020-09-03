@@ -1,7 +1,9 @@
 import { BaseScene } from './baseScene';
 import { Align } from '../common/util/align';
 import { FormUtil } from '../common/util/formUtil';
+import FormScore from '../common/comps/formScore';
 import Button from '../common/ui/button';
+import ButtonScore from '../common/ui/buttonSendScore';
 import chest from '../../assets/images/chest.png';
 import agroFish from '../../assets/images/agroFish.png';
 
@@ -22,12 +24,15 @@ export class SceneOver extends BaseScene {
     //
     //
     //
+
     this.setBackground('seaBg');
     //
     //
     this.makeAlignGrid(11, 11);
     //
     //
+    const domElements = FormScore.createElements();
+    this.add.dom(0, 0, domElements);
     //
     const whiteBg = this.add.image(0, 0, 'panelBack');
     Align.scaleToGameW(whiteBg, 0.9, this);
@@ -37,20 +42,17 @@ export class SceneOver extends BaseScene {
       rows: 11,
       cols: 11,
     });
-    this.formUtil.showNumbers();
     this.formUtil.showElement('enterName');
     this.formUtil.scaleToGameW('enterName', 0.35);
-    this.placeText('\n\n\n Enter Your name:', 49, 'BLACK');
-    this.formUtil.placeElementAt(60, 'enterName', true);
-
-    this.returnBtn2 = new Button(
+    this.placeText('\n\n Enter Your name:', 49, 'BLACK');
+    this.formUtil.placeElementAt(61, 'enterName', true);
+    this.sendScore = new ButtonScore(
       this,
       'btn1',
       'btnH1',
-      'Back to Menu',
-      'SceneTitle',
+      score.score,
     );
-    this.aGrid.placeAtIndex(71, this.returnBtn2);
+    this.aGrid.placeAtIndex(71, this.sendScore);
 
     if (score.win) {
       this.placeText('You Won', 16, 'TITLE_TEXT');
