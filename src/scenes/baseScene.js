@@ -9,8 +9,6 @@ import { TextStyles } from '../common/ui/textStyles';
 import { Controller } from '../common/mc/controller';
 import { SoundPanel } from '../common/ui/soundPanel';
 import { MediaManager } from '../common/util/mediaManager';
-// eslint-disable-next-line import/no-extraneous-dependencies
-// import 'regenerator-runtime/runtime';
 
 // eslint-disable-next-line import/prefer-default-export
 export class BaseScene extends Phaser.Scene {
@@ -141,6 +139,15 @@ export class BaseScene extends Phaser.Scene {
   //
   toggleSoundPanel() {
     this.soundPanel.visible = !this.soundPanel.visible;
+    const el = document.getElementById('enterName');
+    if (el) {
+      const div = document.getElementsByTagName('div');
+      if (this.soundPanel.visible) {
+        div[0].style.display = 'none';
+      } else {
+        div[0].style.display = 'block';
+      }
+    }
   }
 
   getStyle(style) {

@@ -32,6 +32,9 @@ const config = {
       debug: false,
     },
   },
+  dom: {
+    createContainer: true,
+  },
 };
 // eslint-disable-next-line no-unused-vars, no-undef
 const game = new Phaser.Game(config);

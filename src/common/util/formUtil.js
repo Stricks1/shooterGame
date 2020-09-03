@@ -34,7 +34,6 @@ export class FormUtil {
     placeElementAt(index, elName, centerX = true, centerY = false) {
         //get the position from the grid
         var pos = this.alignGrid.getPosByIndex(index);
-        console.log(pos);
         //extract to local vars
         var x = pos.x;
         var y = pos.y;
@@ -46,7 +45,6 @@ export class FormUtil {
         var w = el.style.width;
         //convert to a number
         w = this.toNum(w);
-        console.log("w=" + w);
         //
         //
         //center horizontal in square if needed
@@ -65,7 +63,6 @@ export class FormUtil {
         if (centerY == true) {
             y -= h / 2;
         }
-        console.log("x=" + x);
         //set the positions
         el.style.top = y + "px";
         el.style.left = x + "px";

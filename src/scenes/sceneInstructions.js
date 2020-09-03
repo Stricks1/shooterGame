@@ -29,8 +29,6 @@ export class SceneInstructions extends BaseScene {
 
   create() {
     super.create();
-    //
-    //
     this.setBackground('seaBg');
     this.anims.create({
       key: 'hero',
@@ -62,11 +60,7 @@ export class SceneInstructions extends BaseScene {
       frameRate: 3,
       repeat: -1,
     });
-    //
-    //
     this.makeAlignGrid(11, 11);
-    //
-    //
     const whiteBg = this.add.image(0, 0, 'panelBack');
     Align.scaleToGameW(whiteBg, 0.9, this);
     this.aGrid.placeAtIndex(60, whiteBg);
@@ -101,7 +95,7 @@ export class SceneInstructions extends BaseScene {
     lever.anims.play('lever', true);
     this.placeText('Use levers to open path', 74, 'BLACK');
     this.placeText('Some enemies have more than 1 life, but they run if you hit', 82, 'BLACK');
-    this.placeText('Be carefull with enemies that shoot', 93, 'BLACK');
+    this.placeText('Reach the chest faster to get more points', 93, 'BLACK');
     this.aGrid.placeAtIndex(97, seaHorse);
     seaHorse.anims.play('seaHorse', true);
     Align.scaleToGameW(seaHorse, 0.035, this);
@@ -120,14 +114,7 @@ export class SceneInstructions extends BaseScene {
       true,
     );
     this.aGrid.placeAtIndex(104, this.returnBtn);
-    //
-    //
-    //
-    //
-    //
-    //
     this.makeUi();
-    // this.placeText('Test Me!!',49,'frost');
   }
 
   makeUi() {

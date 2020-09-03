@@ -150,6 +150,13 @@ export class TextStyles {
                 color: "#000000"
             }
         };
+        this.styles['RED'] = {
+            style: {
+                fontFamily: TextStyles.MAIN_FONT,
+                fontSize: TextStyles.SIZE_SMALL2,
+                color: "#FF0000"
+            }
+        };
         this.styles['BLACK2'] = {
             style: {
                 fontFamily: TextStyles.MAIN_FONT,
