@@ -141,6 +141,15 @@ export class BaseScene extends Phaser.Scene {
   //
   toggleSoundPanel() {
     this.soundPanel.visible = !this.soundPanel.visible;
+    const el = document.getElementById('enterName');
+    if (el) {
+      const div = document.getElementsByTagName('div');
+      if (this.soundPanel.visible) {
+        div[0].style.display = 'none';
+      } else {
+        div[0].style.display = 'block';
+      }
+    }
   }
 
   getStyle(style) {

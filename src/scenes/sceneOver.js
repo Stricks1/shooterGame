@@ -43,6 +43,7 @@ export class SceneOver extends BaseScene {
       cols: 11,
     });
     this.formUtil.showElement('enterName');
+    this.formUtil.hideElement('enterName');
     this.formUtil.scaleToGameW('enterName', 0.35);
     this.placeText('\n\n Enter Your name:', 49, 'BLACK');
     this.formUtil.placeElementAt(61, 'enterName', true);
