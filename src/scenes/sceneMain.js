@@ -326,13 +326,10 @@ export class SceneMain extends BaseScene {
       this.emitter.emit('STOP_TIME');
       const secounds = this.clock.getClockTime();
       this.scorePoints += (secounds * 5);
-      this.scene.start('SceneLoad');
     } else {
       this.emitter.emit('STOP_TIME');
-      this.scene.start('SceneLoad');
-      // load sceneOver;
     }
-    console.log(this.scorePoints);
+    this.scene.start('SceneOver', { score: this.scorePoints, win: finish });
   }
 
   createDolphin(place) {

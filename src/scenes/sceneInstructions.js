@@ -65,11 +65,6 @@ export class SceneInstructions extends BaseScene {
     //
     //
     this.makeAlignGrid(11, 11);
-    // this.aGrid.showNumbers();
-    //
-    //
-    //
-    //  this.placeImage('title', 27, .8);
     //
     //
     const whiteBg = this.add.image(0, 0, 'panelBack');
