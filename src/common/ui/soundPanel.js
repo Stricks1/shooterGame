@@ -18,15 +18,9 @@ export class SoundPanel extends UIBlock {
         let model = Model.getInstance();
         //
         //
-        //
-        this.back = this.scene.add.image(0, 0, "panelBack");
-        Align.scaleToGameW(this.back, .6, this.scene);
-        this.add(this.back);
-        //
-        //
         let btnMusic = new ToggleButton({
             scene: this.scene,
-            backKey: 'toggle2',
+            backKey: 'toggle1',
             onIcon: 'musicOn',
             offIcon: 'musicOff',
             event: 'TOGGLE_MUSIC',
@@ -41,7 +35,7 @@ export class SoundPanel extends UIBlock {
         //
         let btnSound = new ToggleButton({
             scene: this.scene,
-            backKey: 'toggle2',
+            backKey: 'toggle1',
             onIcon: 'sfxOn',
             offIcon: 'sfxOff',
             event: 'TOGGLE_SOUND',
@@ -54,9 +48,8 @@ export class SoundPanel extends UIBlock {
         //
         //
         //
-        btnMusic.x = this.back.x - this.back.displayWidth * .25;
-        btnSound.x = this.back.x + this.back.displayWidth * .25;
-        this.back.setScrollFactor(0);
+        btnMusic.x = -480 * .25;
+        btnSound.x = 480 * .25;
         btnMusic.setScrollFactor(0);
         btnSound.setScrollFactor(0);
     }
