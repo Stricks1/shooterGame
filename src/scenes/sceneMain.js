@@ -329,6 +329,11 @@ export class SceneMain extends BaseScene {
     } else {
       this.emitter.emit('STOP_TIME');
     }
+    this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.UP);
+    this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.DOWN);
     this.scene.start('SceneOver', { score: this.scorePoints, win: finish });
   }
 

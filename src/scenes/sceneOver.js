@@ -1,5 +1,6 @@
 import { BaseScene } from './baseScene';
 import { Align } from '../common/util/align';
+import { FormUtil } from '../common/util/formUtil';
 import Button from '../common/ui/button';
 import chest from '../../assets/images/chest.png';
 import agroFish from '../../assets/images/agroFish.png';
@@ -31,12 +32,31 @@ export class SceneOver extends BaseScene {
     const whiteBg = this.add.image(0, 0, 'panelBack');
     Align.scaleToGameW(whiteBg, 0.9, this);
     this.aGrid.placeAtIndex(60, whiteBg);
+    this.formUtil = new FormUtil({
+      scene: this,
+      rows: 11,
+      cols: 11,
+    });
+    this.formUtil.showNumbers();
+    this.formUtil.showElement('enterName');
+    this.formUtil.scaleToGameW('enterName', 0.35);
+    this.placeText('\n\n\n Enter Your name:', 49, 'BLACK');
+    this.formUtil.placeElementAt(60, 'enterName', true);
+
+    this.returnBtn2 = new Button(
+      this,
+      'btn1',
+      'btnH1',
+      'Back to Menu',
+      'SceneTitle',
+    );
+    this.aGrid.placeAtIndex(71, this.returnBtn2);
 
     if (score.win) {
       this.placeText('You Won', 16, 'TITLE_TEXT');
       const chest = this.physics.add.sprite(0, 0, 'chest');
-      this.aGrid.placeAtIndex(49, chest);
-      Align.scaleToGameW(chest, 0.35, this);
+      this.aGrid.placeAtIndex(38, chest);
+      Align.scaleToGameW(chest, 0.3, this);
     } else {
       this.placeText('You Lose', 16, 'TITLE_TEXT');
       this.anims.create({
@@ -46,9 +66,9 @@ export class SceneOver extends BaseScene {
         repeat: -1,
       });
       const agrofish = this.physics.add.sprite(0, 0, 'agrofish');
-      this.aGrid.placeAtIndex(49, agrofish);
+      this.aGrid.placeAtIndex(38, agrofish);
       agrofish.anims.play('agrofish', true);
-      Align.scaleToGameW(agrofish, 0.2, this);
+      Align.scaleToGameW(agrofish, 0.18, this);
     }
 
     this.placeText('SCORE', 82, 'BLACK2');

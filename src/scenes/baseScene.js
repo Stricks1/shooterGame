@@ -10,7 +10,7 @@ import { Controller } from '../common/mc/controller';
 import { SoundPanel } from '../common/ui/soundPanel';
 import { MediaManager } from '../common/util/mediaManager';
 // eslint-disable-next-line import/no-extraneous-dependencies
-// import 'regenerator-runtime/runtime';
+import 'regenerator-runtime/runtime';
 
 // eslint-disable-next-line import/prefer-default-export
 export class BaseScene extends Phaser.Scene {
