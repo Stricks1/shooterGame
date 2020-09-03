@@ -36,7 +36,7 @@ export class SceneOver extends BaseScene {
     });
     this.formUtil.showElement('enterName');
     this.formUtil.hideElement('enterName');
-    this.formUtil.scaleToGameW('enterName', 0.35);
+    this.formUtil.scaleToGameW('enterName', 0.4);
     this.placeText('\n\n Enter Your name:', 49, 'BLACK');
     this.formUtil.placeElementAt(61, 'enterName', true);
     this.sendScore = new ButtonScore(

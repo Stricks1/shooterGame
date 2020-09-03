@@ -1,46 +1,26 @@
 const Api = (() => {
   const key = '71Ni8CRy4fTuVbB6tG23';
 
-  async function getScores() {
-    try {
-      const scores = await fetch(
-        `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`,
-        {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            mode: 'cors',
-          },
-        },
-      );
-      return scores.json();
-    } catch (error) {
-      return error.json();
-    }
-  }
+  const urlRequest = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores`;
+  const getScores = () => new Promise((resolve) => {
+    fetch(urlRequest)
+      .then(response => response.json()
+        .then((json) => {
+          resolve(json.result);
+        }));
+  });
 
-  async function setScores(name, score) {
-    try {
-      const result = await fetch(
-        `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${key}/scores/`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            user: name,
-            score,
-          }),
-        },
-      );
-      return result.json();
-    } catch (error) {
-      return error.json();
-    }
-  }
+  const setScores = (name, score) => {
+    const jsonObj = {
+      user: name,
+      score,
+    };
+    return fetch(urlRequest, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jsonObj),
+    }).then(result => result.json());
+  };
 
   return { getScores, setScores };
 })();
