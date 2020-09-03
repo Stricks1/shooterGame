@@ -2,6 +2,13 @@
   "name": "shootergame",
   "version": "1.1.0",
   "description": "Phaser 3 shooter game",
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ],
   "main": "src/index.js",
   "scripts": {
     "heroku-prebuild": "npm install --dev",
