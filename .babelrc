@@ -11,7 +11,4 @@
       "modules": false
     }]
   ],
-  "plugins": [
-    ["@babel/transform-runtime"]
-  ]
 }
