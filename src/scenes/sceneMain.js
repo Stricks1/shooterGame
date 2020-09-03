@@ -64,7 +64,7 @@ export class SceneMain extends BaseScene {
     this.load.spritesheet('bubble', bubble, { frameWidth: 8, frameHeight: 8 });
     this.load.spritesheet('whale', whale, { frameWidth: 64, frameHeight: 33 });
     this.load.spritesheet('jelly', jelly, { frameWidth: 28, frameHeight: 25 });
-    this.load.spritesheet('agrofish', agroFish, { frameWidth: 29, frameHeight: 26 });
+    this.load.spritesheet('agrofish', agroFish, { frameWidth: 30, frameHeight: 26 });
     this.load.spritesheet('seaHorse', seaHorse, { frameWidth: 13, frameHeight: 32 });
     this.load.spritesheet('lever', lever, { frameWidth: 64, frameHeight: 40 });
     this.cursors = this.input.keyboard.createCursorKeys();

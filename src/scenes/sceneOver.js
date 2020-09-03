@@ -2,6 +2,7 @@ import { BaseScene } from './baseScene';
 import { Align } from '../common/util/align';
 import Button from '../common/ui/button';
 import chest from '../../assets/images/chest.png';
+import agroFish from '../../assets/images/agroFish.png';
 
 // eslint-disable-next-line import/prefer-default-export
 export class SceneOver extends BaseScene {
@@ -12,24 +13,21 @@ export class SceneOver extends BaseScene {
   // eslint-disable-next-line class-methods-use-this
   preload() {
     this.load.image('chest', chest);
+    this.load.spritesheet('agrofish', agroFish, { frameWidth: 30, frameHeight: 26 });
   }
 
   create(score) {
     super.create();
     //
     //
-    // uncomment to turn on music
-    // this.mm.setBackgroundMusic('backgroundMusic');
     //
     this.setBackground('seaBg');
-    console.log(score.score);
     //
     //
     this.makeAlignGrid(11, 11);
     //
     //
     //
-    //  this.placeImage('title', 27, .8);
     const whiteBg = this.add.image(0, 0, 'panelBack');
     Align.scaleToGameW(whiteBg, 0.9, this);
     this.aGrid.placeAtIndex(60, whiteBg);
@@ -41,10 +39,17 @@ export class SceneOver extends BaseScene {
       Align.scaleToGameW(chest, 0.35, this);
     } else {
       this.placeText('You Lose', 16, 'TITLE_TEXT');
+      this.anims.create({
+        key: 'agrofish',
+        frames: this.anims.generateFrameNumbers('agrofish', { start: 8, end: 9 }),
+        frameRate: 1,
+        repeat: -1,
+      });
+      const agrofish = this.physics.add.sprite(0, 0, 'agrofish');
+      this.aGrid.placeAtIndex(49, agrofish);
+      agrofish.anims.play('agrofish', true);
+      Align.scaleToGameW(agrofish, 0.2, this);
     }
-
-    this.aGrid.showNumbers();
-
 
     this.placeText('SCORE', 82, 'BLACK2');
     this.placeText(`${score.score} Points`, 93, 'BLACK');

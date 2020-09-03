@@ -21,7 +21,7 @@ export class SceneInstructions extends BaseScene {
     this.load.spritesheet('ink', ink, { frameWidth: 17, frameHeight: 15 });
     this.load.spritesheet('light', enemyshoot, { frameWidth: 15, frameHeight: 15 });
     this.load.spritesheet('bubble', bubble, { frameWidth: 8, frameHeight: 8 });
-    this.load.spritesheet('agrofish', agroFish, { frameWidth: 29, frameHeight: 26 });
+    this.load.spritesheet('agrofish', agroFish, { frameWidth: 30, frameHeight: 26 });
     this.load.spritesheet('lever', lever, { frameWidth: 64, frameHeight: 40 });
     this.load.spritesheet('seaHorse', seaHorse, { frameWidth: 13, frameHeight: 32 });
     this.load.image('chest', chest);
