@@ -1,8 +1,5 @@
 import { BaseScene } from './baseScene';
-import { FlatButton } from '../common/ui/flatButton';
-// import { TextStyles } from '../common/ui/textStyles';
-// import { ToggleButton } from '../common/ui/toggleButton';
-// import { Align } from '../common/util/align';
+import Button from '../common/ui/button';
 //
 //
 //
@@ -23,7 +20,7 @@ export class SceneTitle extends BaseScene {
     // uncomment to turn on music
     this.mm.setBackgroundMusic('underwater');
     //
-    this.setBackground('sky');
+    this.setBackground('seaBg');
     //
     //
     this.makeAlignGrid(11, 11);
@@ -32,22 +29,34 @@ export class SceneTitle extends BaseScene {
     //
     //
     //  this.placeImage('title', 27, .8);
-    this.placeText('Game Title', 27, 'TITLE_TEXT');
-    //
-    //
-    //
-    //  let buttonStyle = this.textStyles.getStyle(TextStyles.BUTTON_STYLE);
-    const btnNext = new FlatButton({
-      scene: this,
-      textStyle: 'BUTTON_STYLE',
-      key: 'button',
-      text: 'START GAME',
-      callback: this.startGame.bind(this),
-    });
-    this.aGrid.placeAtIndex(104, btnNext);
-    //
-    //
-    //
+    this.placeText('Pacific Treasures', 27, 'TITLE_TEXT');
+
+    this.startGame = new Button(
+      this,
+      'btn1',
+      'btnH1',
+      'Play Game',
+      'SceneMain',
+    );
+    this.aGrid.placeAtIndex(49, this.startGame);
+
+    this.instructionBtn = new Button(
+      this,
+      'btn1',
+      'btnH1',
+      'Instructions',
+      'SceneInstructions',
+    );
+    this.aGrid.placeAtIndex(71, this.instructionBtn);
+
+    this.leaderboardBtn = new Button(
+      this,
+      'btn1',
+      'btnH1',
+      'Leaderboard',
+      'SceneLeaderboard',
+    );
+    this.aGrid.placeAtIndex(93, this.leaderboardBtn);
     //
     //
     //
@@ -58,10 +67,6 @@ export class SceneTitle extends BaseScene {
   makeUi() {
     super.makeSoundPanel();
     super.makeGear();
-  }
-
-  startGame() {
-    this.scene.start('SceneMain');
   }
 
   // eslint-disable-next-line class-methods-use-this

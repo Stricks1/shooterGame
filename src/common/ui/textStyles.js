@@ -120,11 +120,10 @@ export class TextStyles {
         this.styles['TITLE_TEXT'] = {
             style: {
                 fontFamily: TextStyles.MAIN_FONT,
-                fontSize: TextStyles.SIZE_LARGE,
+                fontSize: TextStyles.SIZE_MED3,
                 color: "red"
             },
             shadow: "#000000",
-            stroke: "#ffffff",
             strokeThickness: 2
         };
         this.styles['POINT_BOX'] = {
@@ -147,7 +146,14 @@ export class TextStyles {
         this.styles['BLACK'] = {
             style: {
                 fontFamily: TextStyles.MAIN_FONT,
-                fontSize: TextStyles.SIZE_MED,
+                fontSize: TextStyles.SIZE_SMALL2,
+                color: "#000000"
+            }
+        };
+        this.styles['BLACK2'] = {
+            style: {
+                fontFamily: TextStyles.MAIN_FONT,
+                fontSize: TextStyles.SIZE_SMALL,
                 color: "#000000"
             }
         };
@@ -168,7 +174,7 @@ export class TextStyles {
         this.styles['BUTTON_STYLE'] = {
             style: {
                 fontFamily: TextStyles.MAIN_FONT,
-                fontSize: TextStyles.SIZE_MED3,
+                fontSize: TextStyles.SIZE_MED2,
                 color: "#ffffff",
             },
             shadow: "#000000"
