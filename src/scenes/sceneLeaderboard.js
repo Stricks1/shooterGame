@@ -39,6 +39,7 @@ export class SceneLeaderboard extends BaseScene {
       'btnH1',
       'Back to Menu',
       'SceneTitle',
+      true,
     );
     this.aGrid.placeAtIndex(104, this.returnBtn);
     //

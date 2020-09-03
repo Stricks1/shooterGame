@@ -2,7 +2,7 @@ import { Align } from '../util/align';
 
 // eslint-disable-next-line no-undef
 export default class Button extends Phaser.GameObjects.Container {
-  constructor(scene, key1, key2, text, targetScene) {
+  constructor(scene, key1, key2, text, targetScene, turnOff = false) {
     super(scene);
     this.scene = scene;
 
@@ -19,6 +19,9 @@ export default class Button extends Phaser.GameObjects.Container {
     this.add(this.text);
 
     this.button.on('pointerdown', () => {
+      if (turnOff) {
+        this.scene.mm.background.stop();
+      }
       this.scene.scene.start(targetScene);
     });
 
