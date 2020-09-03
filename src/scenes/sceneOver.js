@@ -21,19 +21,11 @@ export class SceneOver extends BaseScene {
 
   create(score) {
     super.create();
-    //
-    //
-    //
 
     this.setBackground('seaBg');
-    //
-    //
     this.makeAlignGrid(11, 11);
-    //
-    //
     const domElements = FormScore.createElements();
     this.add.dom(0, 0, domElements);
-    //
     const whiteBg = this.add.image(0, 0, 'panelBack');
     Align.scaleToGameW(whiteBg, 0.9, this);
     this.aGrid.placeAtIndex(60, whiteBg);
@@ -76,9 +68,6 @@ export class SceneOver extends BaseScene {
 
     this.placeText('SCORE', 82, 'BLACK2');
     this.placeText(`${score.score} Points`, 93, 'BLACK');
-    //
-    //
-    //
     this.returnBtn = new Button(
       this,
       'btn1',
@@ -87,14 +76,7 @@ export class SceneOver extends BaseScene {
       'SceneTitle',
     );
     this.aGrid.placeAtIndex(104, this.returnBtn);
-    //
-    //
-    //
-    //
-    //
-    //
     this.makeUi();
-    // this.placeText('Test Me!!',49,'frost');
   }
 
   makeUi() {

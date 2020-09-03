@@ -83,8 +83,6 @@ export class SceneMain extends BaseScene {
       cols: 120,
       width: 800 * 10,
     });
-    //
-    //
     this.brickGroup = this.physics.add.group();
     this.enWallGroup = this.physics.add.group();
 

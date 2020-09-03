@@ -16,11 +16,6 @@ export class SceneLoad extends BaseScene {
     this.audioPath = `${this.common}audio/`;
     this.load.image('btn1', btn1);
     this.load.image('btnH1', btnH1);
-    /**
-     *
-     * make the loading bars
-     *
-     */
     this.bar2 = new Bar({
       scene: this,
       height: this.sys.game.config.height * 0.1,
@@ -34,72 +29,38 @@ export class SceneLoad extends BaseScene {
     });
     Align.center(this.bar, this);
     Align.center(this.bar2, this);
-    /*
-       set up the progress
-     */
     this.load.on('progress', this.onProgress, this);
-    /**
-     *
-     *LOAD THE ASSETS
-     *
-     */
     const iconArray = ['gear', 'musicOff', 'musicOn', 'sfxOn', 'sfxOff'];
     for (let i = 0; i < iconArray.length; i += 1) {
       this.loadIcon(iconArray[i]);
     }
-    //
-    // game png
-    //
     const pngArray = ['panelBack'];
     for (let i = 0; i < pngArray.length; i += 1) {
       this.loadPng(pngArray[i], this.imagePath);
     }
-    //
-    // game jpg
-    //
     const jpgArray = ['seaBg'];
     for (let i = 0; i < jpgArray.length; i += 1) {
       this.loadJpg(jpgArray[i], this.imagePath);
     }
-    //
-    // game wav
-    //
     const wavArray = [];
     for (let i = 0; i < wavArray.length; i += 1) {
       this.loadWav(wavArray[i], this.audioPath);
     }
-    //
-    // game mp3
-    //
     const mp3Array = ['underwater'];
     for (let i = 0; i < mp3Array.length; i += 1) {
       this.loadMp3(mp3Array[i], this.audioPath);
     }
-    //
-    // common wav
-    //
     const cwavArray = ['smw_jump', 'smb_bump', 'enemy_hit', 'enemy_death', 'game_over', 'enemy_shoot'];
     for (let i = 0; i < cwavArray.length; i += 1) {
       this.loadWav(cwavArray[i]);
     }
-    //
-    //
-    //
     const cmp3Array = ['underwater'];
     for (let i = 0; i < cmp3Array.length; i += 1) {
       this.loadMp3(cmp3Array[i]);
     }
-    //        //
-    //
-    // load toggles and buttons
-    //
     this.loadToggle(1);
     this.loadToggle(2);
     this.loadButton('button', 1, 2);
-    //
-    // load effects
-    //
-    // used for point box
     this.load.image('holder', `${this.common}images/ui/backs/holder.jpg`);
   }
 

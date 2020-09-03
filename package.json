@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Stricks1/shooterGame.git#readme",
   "devDependencies": {
     "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.7.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^4.2.2",

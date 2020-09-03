@@ -17,17 +17,9 @@ export class SceneLeaderboard extends BaseScene {
 
   create() {
     super.create();
-    //
-    //
+
     this.setBackground('seaBg');
-    //
-    //
     this.makeAlignGrid(11, 11);
-    // this.aGrid.showNumbers();
-    //
-    //
-    //
-    //  this.placeImage('title', 27, .8);
     const whiteBg = this.add.image(0, 0, 'panelBack');
     Align.scaleToGameW(whiteBg, 0.9, this);
     this.aGrid.placeAtIndex(60, whiteBg);
@@ -45,7 +37,6 @@ export class SceneLeaderboard extends BaseScene {
     Align.scaleToGameW(loading, 0.25, this);
     //
     //
-    //  CHECK WHY API STOPPED WORKING
 
     Api.getScores().then((response) => {
       const highScores = response.result.sort((a, b) => b.score - a.score);
@@ -87,14 +78,7 @@ export class SceneLeaderboard extends BaseScene {
       true,
     );
     this.aGrid.placeAtIndex(93, this.returnBtn);
-    //
-    //
-    //
-    //
-    //
-    //
     this.makeUi();
-    // this.placeText('Test Me!!',49,'frost');
   }
 
   makeUi() {

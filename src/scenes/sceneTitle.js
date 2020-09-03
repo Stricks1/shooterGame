@@ -1,5 +1,4 @@
 import { BaseScene } from './baseScene';
-import { FormUtil } from '../common/util/formUtil';
 import Button from '../common/ui/button';
 //
 //
@@ -16,20 +15,10 @@ export class SceneTitle extends BaseScene {
 
   create() {
     super.create();
-    //
-    //
-    // uncomment to turn on music
+
     this.mm.setBackgroundMusic('underwater');
-    //
     this.setBackground('seaBg');
-    //
-    //
     this.makeAlignGrid(11, 11);
-    // this.aGrid.showNumbers();
-    //
-    //
-    //
-    //  this.placeImage('title', 27, .8);
     this.placeText('Pacific Treasures', 27, 'TITLE_TEXT');
 
     this.startGame = new Button(
@@ -58,11 +47,7 @@ export class SceneTitle extends BaseScene {
       'SceneLeaderboard',
     );
     this.aGrid.placeAtIndex(93, this.leaderboardBtn);
-    //
-    //
-    //
     this.makeUi();
-    // this.placeText('Test Me!!',49,'frost');
   }
 
   makeUi() {
