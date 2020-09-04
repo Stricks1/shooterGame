@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable max-classes-per-file */
 // eslint-disable-next-line import/prefer-default-export
-import Phaser from 'phaser';
 
 export class CharObject extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, key) {
