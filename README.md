@@ -37,6 +37,8 @@ Alternatively you can play online on the [Live Demo](#demo)
 
 On this game, you are Bob the octopus, and you are in a quest to find a treasure in the 16-bit layout deep sea. You need to face some sea creatures in order to achieve your goal. You have 5 minutes to complete the quest.
 
+![screenshoot](./readmeImg/gameReadme.png)
+
 ### How to play
 
 - To move our character you should use the left and arrow keys on your keyboard.
