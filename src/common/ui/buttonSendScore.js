@@ -27,9 +27,8 @@ export default class ButtonScore extends Phaser.GameObjects.Container {
         Api.setScores(el.value, this.score).then((_response) => {
           this.scene.scene.start('SceneLeaderboard');
         }).catch(() => {
-          this.scene.placeText('Problem to connect', 63, 'RED');
+          this.scene.scene.start('SceneLeaderboard');
         });
-        this.scene.scene.start('SceneLeaderboard');
       } else {
         this.scene.placeText("* can't be blank", 63, 'RED');
       }

@@ -39,7 +39,7 @@ export class SceneLeaderboard extends BaseScene {
     //
 
     Api.getScores().then((response) => {
-      const highScores = response.result.sort((a, b) => b.score - a.score);
+      const highScores = response.sort((a, b) => b.score - a.score);
       let playersName1 = '';
       let playersName2 = '';
 
