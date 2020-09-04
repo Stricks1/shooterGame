@@ -11,7 +11,9 @@ This game was build using Phaser 3 to learn his functionalities
 
 * [Game Instructions](#game-instructions)
 * [Live Demo](#demo)
+* [Future Implementations](#future-implementations)
 * [Built With](#built-with)
+* [Testing](#testing)
 * [Templates](#templates)
 * [Design Credits](#design-credits)
 * [Contributing](#contributing)
@@ -89,6 +91,11 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 [Live Demo](https://phaserseagame.herokuapp.com)
 
+## Future Implementations
+
+- I plan to add more stages for the game
+- I will add some more images for the background (already added some interesting pngs on the assets to be used on improvements).
+- Add more enemies with different behavior.
 
 ## Built With
 - Javascript
@@ -96,6 +103,12 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 - Phaser 3
 - Webpack
 - Microverse Leaderboard API
+
+## Testing
+
+- Test made with Jest.
+
+You can run test running npm test on console at the folder
 
 ## Templates
 
