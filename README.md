@@ -11,7 +11,9 @@ This game was build using Phaser 3 to learn his functionalities
 
 * [Game Instructions](#game-instructions)
 * [Live Demo](#demo)
+* [Future Implementations](#future-implementations)
 * [Built With](#built-with)
+* [Testing](#testing)
 * [Templates](#templates)
 * [Design Credits](#design-credits)
 * [Contributing](#contributing)
@@ -89,13 +91,24 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 [Live Demo](https://phaserseagame.herokuapp.com)
 
+## Future Implementations
+
+- I plan to add more stages for the game
+- I will add some more images for the background (already added some interesting pngs on the assets to be used on improvements).
+- Add more enemies with different behavior.
 
 ## Built With
 - Javascript
 - HTML
 - Phaser 3
 - Webpack
-- Microverse Leaderboard API
+- Leaderboard API
+
+## Testing
+
+- Test made with Jest.
+
+You can run test running npm test on console at the folder
 
 ## Templates
 
@@ -105,7 +118,7 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 - The background used is from free assets on [itch io](https://ansimuz.itch.io/underwater-fantasy-pixel-art-environment)
 - Most sea creatures are also from free assets you can find it [here](https://rapidpunches.itch.io/)
-- The main character octopus is a twitch mascot from [here](https://www.twitch.tv/hicelina) the original art creator is Michael Perez.
+- The main character octopus is a twitch mascot from [hicelina](https://www.twitch.tv/hicelina) the original art creator is [Michael Perez](https://pixelfly.artstation.com/).
 
 ## Contributing
 
