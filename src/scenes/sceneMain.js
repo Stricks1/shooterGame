@@ -10,6 +10,8 @@ import ground3 from '../../assets/images/tiles-sandbar2.png';
 import ground4 from '../../assets/images/tiles-giantKelp.png';
 import lever from '../../assets/images/lever.png';
 import chest from '../../assets/images/chest.png';
+import coral1 from '../../assets/images/coral-pink-thin.png';
+import coral2 from '../../assets/images/coral-yellow-orange-wide.png';
 import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
@@ -47,6 +49,8 @@ export class SceneMain extends BaseScene {
   }
 
   preload() {
+    this.load.image('coral1', coral1);
+    this.load.image('coral2', coral2);
     this.load.image('bkgr1', bgr1);
     this.load.image('bkgr2', bgr2);
     this.load.image('bkgr3', bgr3);
@@ -99,7 +103,6 @@ export class SceneMain extends BaseScene {
 
     this.cameras.main.setBounds(0, 0, this.sys.game.config.width * 10, this.sys.game.config.height);
 
-
     // create chest endGame
     this.makeFloor(357, 359, 'ground2');
     const chest = this.physics.add.sprite(0, 0, 'chest');
@@ -145,6 +148,22 @@ export class SceneMain extends BaseScene {
 
     // floor
     this.makeFloor(1200, 1319, 'ground1');
+
+    // create decoration
+
+    this.decorationGroup = this.physics.add.group();
+    this.createDecor(1086, 'coral1', 0.05);
+    this.createDecor(1097, 'coral2', 0.055);
+    this.createDecor(1127, 'coral2', 0.055);
+    this.createDecor(1141, 'coral1', 0.055);
+    this.createDecor(1144, 'coral1', 0.055);
+    this.createDecor(1142, 'coral2', 0.055);
+    this.createDecor(1156, 'coral1', 0.055);
+    this.createDecor(1165, 'coral1', 0.055);
+    this.createDecor(1171, 'coral2', 0.055);
+    this.createDecor(1191, 'coral1', 0.055);
+    this.createDecor(239, 'coral1', 0.055);
+    this.physics.add.collider(this.decorationGroup, this.brickGroup);
 
     // Enemy creations
     // create dolphin
@@ -257,7 +276,7 @@ export class SceneMain extends BaseScene {
 
     // create main character
     this.player = new Player(this, 100, 450, 'hero');
-    this.blockGrid.placeAtIndex(961, this.player);
+    this.blockGrid.placeAtIndex(720, this.player);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.brickGroup);
     this.physics.add.collider(this.player, this.dolphinsGroup, () => { this.gameOver(false); });
@@ -333,6 +352,14 @@ export class SceneMain extends BaseScene {
     this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.UP);
     this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.DOWN);
     this.scene.start('SceneOver', { score: this.scorePoints, win: finish });
+  }
+
+  createDecor(place, key, scale) {
+    const decor = this.physics.add.sprite(0, 0, key);
+    this.decorationGroup.add(decor);
+    this.blockGrid.placeAtIndex(place, decor);
+    Align.scaleToGameW(decor, scale, this);
+    decor.setImmovable(true);
   }
 
   createDolphin(place) {
