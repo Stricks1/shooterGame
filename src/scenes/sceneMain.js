@@ -352,7 +352,7 @@ export class SceneMain extends BaseScene {
       delay: 5000,
       callback: () => { this.bubbleImg(char); },
       callbackScope: this,
-      loop: true
+      loop: true,
     });
   }
 
@@ -360,6 +360,15 @@ export class SceneMain extends BaseScene {
     const bubbleUp = this.physics.add.sprite(char.x, char.y, 'bubbleMove');
     bubbleUp.anims.play('bubbleMove');
     bubbleUp.setGravityY(-100);
+    this.physics.add.collider(bubbleUp, this.brickGroup, () => { bubbleUp.destroy(); });
+    this.time.addEvent({
+      delay: 5000,
+      callback: () => {
+        bubbleUp.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
   }
 
   gameOver(finish) {
