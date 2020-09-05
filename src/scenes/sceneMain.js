@@ -17,6 +17,7 @@ import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
 import ink from '../../assets/images/inkOct.png';
 import bubble from '../../assets/images/bubble-tiny-fill.png';
+import bubbleMove from '../../assets/images/bubbleMove.png';
 import enemyshoot from '../../assets/images/light.png';
 import whale from '../../assets/images/bluewhaleLR.png';
 import jelly from '../../assets/images/jelly.png';
@@ -61,6 +62,7 @@ export class SceneMain extends BaseScene {
     this.load.image('ground4', ground4);
     this.load.image('chest', chest);
     this.load.image('enWall', enWall);
+    this.load.spritesheet('bubbleMove', bubbleMove, { frameWidth: 24, frameHeight: 8 });
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
     this.load.spritesheet('dolphin', dolp, { frameWidth: 64, frameHeight: 30 });
     this.load.spritesheet('ink', ink, { frameWidth: 17, frameHeight: 15 });
@@ -327,6 +329,15 @@ export class SceneMain extends BaseScene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'bubbleMove',
+      frames: this.anims.generateFrameNumbers('bubbleMove', { start: 0, end: 2 }),
+      frameRate: 2,
+      repeat: -1,
+    });
+
+    this.createBubbles(this.player);
+
     this.cameras.main.startFollow(this.player);
 
     //
@@ -334,6 +345,21 @@ export class SceneMain extends BaseScene {
     // this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
+  }
+
+  createBubbles(char) {
+    this.time.addEvent({
+      delay: 5000,
+      callback: () => { this.bubbleImg(char); },
+      callbackScope: this,
+      loop: true
+    });
+  }
+
+  bubbleImg(char) {
+    const bubbleUp = this.physics.add.sprite(char.x, char.y, 'bubbleMove');
+    bubbleUp.anims.play('bubbleMove');
+    bubbleUp.setGravityY(-100);
   }
 
   gameOver(finish) {

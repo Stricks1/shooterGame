@@ -312,7 +312,6 @@ export class AgroFish extends CharObject {
   }
 }
 
-
 export class SeaHorse extends CharObject {
   constructor(scene, x, y, key) {
     super(scene, x, y, key);
