@@ -102,7 +102,7 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 - HTML
 - Phaser 3
 - Webpack
-- Microverse Leaderboard API
+- Leaderboard API
 
 ## Testing
 
@@ -118,7 +118,7 @@ You can run test running npm test on console at the folder
 
 - The background used is from free assets on [itch io](https://ansimuz.itch.io/underwater-fantasy-pixel-art-environment)
 - Most sea creatures are also from free assets you can find it [here](https://rapidpunches.itch.io/)
-- The main character octopus is a twitch mascot from [here](https://www.twitch.tv/hicelina) the original art creator is Michael Perez.
+- The main character octopus is a twitch mascot from [hicelina](https://www.twitch.tv/hicelina) the original art creator is [Michael Perez](https://pixelfly.artstation.com/).
 
 ## Contributing
 
