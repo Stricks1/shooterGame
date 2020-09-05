@@ -10,11 +10,14 @@ import ground3 from '../../assets/images/tiles-sandbar2.png';
 import ground4 from '../../assets/images/tiles-giantKelp.png';
 import lever from '../../assets/images/lever.png';
 import chest from '../../assets/images/chest.png';
+import coral1 from '../../assets/images/coral-pink-thin.png';
+import coral2 from '../../assets/images/coral-yellow-orange-wide.png';
 import enWall from '../../assets/images/8bit-tile-sparkle-water-vert.png';
 import hero from '../../assets/images/bobHero.png';
 import dolp from '../../assets/images/dolphins.png';
 import ink from '../../assets/images/inkOct.png';
 import bubble from '../../assets/images/bubble-tiny-fill.png';
+import bubbleMove from '../../assets/images/bubbleMove.png';
 import enemyshoot from '../../assets/images/light.png';
 import whale from '../../assets/images/bluewhaleLR.png';
 import jelly from '../../assets/images/jelly.png';
@@ -47,6 +50,8 @@ export class SceneMain extends BaseScene {
   }
 
   preload() {
+    this.load.image('coral1', coral1);
+    this.load.image('coral2', coral2);
     this.load.image('bkgr1', bgr1);
     this.load.image('bkgr2', bgr2);
     this.load.image('bkgr3', bgr3);
@@ -57,6 +62,7 @@ export class SceneMain extends BaseScene {
     this.load.image('ground4', ground4);
     this.load.image('chest', chest);
     this.load.image('enWall', enWall);
+    this.load.spritesheet('bubbleMove', bubbleMove, { frameWidth: 24, frameHeight: 8 });
     this.load.spritesheet('hero', hero, { frameWidth: 43, frameHeight: 48 });
     this.load.spritesheet('dolphin', dolp, { frameWidth: 64, frameHeight: 30 });
     this.load.spritesheet('ink', ink, { frameWidth: 17, frameHeight: 15 });
@@ -98,7 +104,6 @@ export class SceneMain extends BaseScene {
     this.backGroundAlign(totalWidth, 'bkgr3', 'bkgr32', 0.50);
 
     this.cameras.main.setBounds(0, 0, this.sys.game.config.width * 10, this.sys.game.config.height);
-
 
     // create chest endGame
     this.makeFloor(357, 359, 'ground2');
@@ -145,6 +150,22 @@ export class SceneMain extends BaseScene {
 
     // floor
     this.makeFloor(1200, 1319, 'ground1');
+
+    // create decoration
+
+    this.decorationGroup = this.physics.add.group();
+    this.createDecor(1086, 'coral1', 0.05);
+    this.createDecor(1097, 'coral2', 0.055);
+    this.createDecor(1127, 'coral2', 0.055);
+    this.createDecor(1141, 'coral1', 0.055);
+    this.createDecor(1144, 'coral1', 0.055);
+    this.createDecor(1142, 'coral2', 0.055);
+    this.createDecor(1156, 'coral1', 0.055);
+    this.createDecor(1165, 'coral1', 0.055);
+    this.createDecor(1171, 'coral2', 0.055);
+    this.createDecor(1191, 'coral1', 0.055);
+    this.createDecor(239, 'coral1', 0.055);
+    this.physics.add.collider(this.decorationGroup, this.brickGroup);
 
     // Enemy creations
     // create dolphin
@@ -257,7 +278,7 @@ export class SceneMain extends BaseScene {
 
     // create main character
     this.player = new Player(this, 100, 450, 'hero');
-    this.blockGrid.placeAtIndex(961, this.player);
+    this.blockGrid.placeAtIndex(720, this.player);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.brickGroup);
     this.physics.add.collider(this.player, this.dolphinsGroup, () => { this.gameOver(false); });
@@ -308,6 +329,15 @@ export class SceneMain extends BaseScene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'bubbleMove',
+      frames: this.anims.generateFrameNumbers('bubbleMove', { start: 0, end: 2 }),
+      frameRate: 2,
+      repeat: -1,
+    });
+
+    this.createBubbles(this.player);
+
     this.cameras.main.startFollow(this.player);
 
     //
@@ -315,6 +345,30 @@ export class SceneMain extends BaseScene {
     // this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
+  }
+
+  createBubbles(char) {
+    this.time.addEvent({
+      delay: 5000,
+      callback: () => { this.bubbleImg(char); },
+      callbackScope: this,
+      loop: true,
+    });
+  }
+
+  bubbleImg(char) {
+    const bubbleUp = this.physics.add.sprite(char.x, char.y, 'bubbleMove');
+    bubbleUp.anims.play('bubbleMove');
+    bubbleUp.setGravityY(-100);
+    this.physics.add.collider(bubbleUp, this.brickGroup, () => { bubbleUp.destroy(); });
+    this.time.addEvent({
+      delay: 5000,
+      callback: () => {
+        bubbleUp.destroy();
+      },
+      callbackScope: this,
+      loop: false,
+    });
   }
 
   gameOver(finish) {
@@ -333,6 +387,14 @@ export class SceneMain extends BaseScene {
     this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.UP);
     this.input.keyboard.removeCapture(Phaser.Input.Keyboard.KeyCodes.DOWN);
     this.scene.start('SceneOver', { score: this.scorePoints, win: finish });
+  }
+
+  createDecor(place, key, scale) {
+    const decor = this.physics.add.sprite(0, 0, key);
+    this.decorationGroup.add(decor);
+    this.blockGrid.placeAtIndex(place, decor);
+    Align.scaleToGameW(decor, scale, this);
+    decor.setImmovable(true);
   }
 
   createDolphin(place) {
