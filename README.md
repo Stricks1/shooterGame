@@ -10,6 +10,7 @@ This game was build using Phaser 3 to learn his functionalities
 ## Table of Contents
 
 * [Game Instructions](#game-instructions)
+* [Video Presentation](#video-presentation)
 * [Live Demo](#demo)
 * [Future Implementations](#future-implementations)
 * [Built With](#built-with)
@@ -86,6 +87,9 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 - At some points, you will face a wall of seaweed. In order to open that wall, you need to activate the lever. You can do it by touching or shooting it.
 
+## Video Presentation
+
+[Loom video apresentation](https://www.loom.com/share/2c308d7d8a1946d29fa9aca5327135e9)
 
 ## Demo
 
