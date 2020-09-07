@@ -16,9 +16,6 @@ export class TextObj extends Phaser.GameObjects.Text {
         if (config.scale) {
             Align.scaleToGameW(this, config.scale);
         }
-        //
-        //
-        //
         if (!config.textStyle) {
             config.textStyle = {
                 fontSize: "16px",
@@ -45,14 +42,12 @@ export class TextObj extends Phaser.GameObjects.Text {
             this.on('pointerdown', this.onDown, this);
         }
         this.scene.add.existing(this);
-        // ut.emitter.on(G.SCENE_CHANGED, this.sceneChanged, this);
     }
     onDown() {
         let emitter = EventDispatcher.getInstance();
         emitter.emit(this.config.event, this.config);
     }
     sceneChanged() {
-        //   ut.emitter.off(G.SCENE_CHANGED, this.sceneChanged, this);
         this.destroy();
     }
 }

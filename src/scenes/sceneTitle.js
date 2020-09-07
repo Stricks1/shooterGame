@@ -1,8 +1,5 @@
 import { BaseScene } from './baseScene';
 import Button from '../common/ui/button';
-//
-//
-//
 // eslint-disable-next-line import/prefer-default-export
 export class SceneTitle extends BaseScene {
   constructor() {

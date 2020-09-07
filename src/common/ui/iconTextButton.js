@@ -22,16 +22,11 @@ export class IconTextButton extends BaseUI {
     constructor(config) {
         super({scene:config.scene});
         this.scene = config.scene;
-        // this.back = this.scene.add.image(0, 0, config.backKey);
         this.setBack(config.backKey, config.scale);
         this.setAlignGrid(3, 3);
         
         this.model = Model.getInstance();
         this.emitter = EventDispatcher.getInstance();
-        // this.textStyles=TextStyles.getInstance(this.scene.sys.game.config.width);
-        //
-        //
-        //
         if (!config.text) {
             config.text = "-";
         }
@@ -43,9 +38,6 @@ export class IconTextButton extends BaseUI {
             config.textPos=4;
         }
         this.text1 = this.placeText(config.text, config.textPos, config.textStyle);
-        //
-        //
-        //
         this.oy = null;
         if (!config.scale) {
             config.scale = .1;
@@ -56,15 +48,6 @@ export class IconTextButton extends BaseUI {
         if (!config.iconScale) {
             config.iconScale = config.scale / 2;
         }
-        //
-        //
-        //
-        //
-        
-        // this.text1.setDepth(100);
-        //
-        //
-        //
         if (config.event) {
             this.event = config.event;
         }
@@ -81,27 +64,15 @@ export class IconTextButton extends BaseUI {
         } else {
             var iconColor = 0xffffff;
         }
-        //
-        //
-        //
-        //
         this.back.setInteractive();
         this.back.on('pointerdown', this.pressed, this);
-        //  this.back.on('pointerover', this.over, this);
-        //   this.back.on('pointerout', this.out, this);
         this.back.on('pointerup', this.up, this);
-        //
-        //
-        //
         if (config.x) {
             this.x = config.x;
         }
         if (config.y) {
             this.y = config.y;
         }
-        //
-        //
-        //
         this.setSize(this.back.displayWidth, this.back.displayHeight);
         this.emitter.on('SCENE_CHANGED', this.sceneChanged, this);
         this.icon.setTintFill(iconColor);
@@ -147,7 +118,6 @@ export class IconTextButton extends BaseUI {
                 this.emitter.emit(this.event);
             }
         }
-        // this.y = this.oy - this.hp.game.config.height * .01;
     }
     pressed() {
         if (this.oy == null) {

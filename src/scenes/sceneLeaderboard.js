@@ -35,8 +35,6 @@ export class SceneLeaderboard extends BaseScene {
     this.aGrid.placeAtIndex(60, loading);
     loading.anims.play('loading', true);
     Align.scaleToGameW(loading, 0.25, this);
-    //
-    //
 
     Api.getScores().then((response) => {
       const highScores = response.sort((a, b) => b.score - a.score);

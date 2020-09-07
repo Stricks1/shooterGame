@@ -15,16 +15,9 @@ export class IconButton extends BaseUI {
         });
         this.scene = config.scene;
         this.config = config;
-        //
-        //
-        //
         this.emitter = EventDispatcher.getInstance();
-        //this.back = this.scene.add.image(0, 0, config.backKey);
         this.setBack(config.backKey, config.scale);
         this.setAlignGrid(3, 3);
-        //
-        //
-        //
         this.oy = null;
         if (!config.scale) {
             config.scale = .1;
@@ -42,35 +35,22 @@ export class IconButton extends BaseUI {
             this.params = config.params;
         }
         this.icon = this.placeImage(config.icon, 4, config.iconScale);
-        //
-        //
-        //
         if (config.iconColor) {
             var iconColor = config.iconColor;
         } else {
             var iconColor = 0xffffff;
         }
-        //
-        //
-        //
-        //
         this.back.setInteractive();
         this.back.on('pointerdown', this.pressed, this);
         this.back.on('pointerover', this.over, this);
         this.back.on('pointerout', this.out, this);
         this.back.on('pointerup', this.up, this);
-        //
-        //
-        //
         if (config.x) {
             this.x = config.x;
         }
         if (config.y) {
             this.y = config.y;
         }
-        //
-        //
-        //
         this.setSize(this.back.displayWidth, this.back.displayHeight);
         this.icon.setTintFill(iconColor);
     }

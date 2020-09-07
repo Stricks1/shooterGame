@@ -16,8 +16,6 @@ export class SoundPanel extends UIBlock {
         super(config.scene);
         this.scene = config.scene;
         let model = Model.getInstance();
-        //
-        //
         let btnMusic = new ToggleButton({
             scene: this.scene,
             backKey: 'toggle1',
@@ -30,9 +28,6 @@ export class SoundPanel extends UIBlock {
             y: 0
         });
         this.add(btnMusic);
-        //
-        //
-        //
         let btnSound = new ToggleButton({
             scene: this.scene,
             backKey: 'toggle1',
@@ -45,9 +40,6 @@ export class SoundPanel extends UIBlock {
             y: 0
         });
         this.add(btnSound);
-        //
-        //
-        //
         btnMusic.x = -480 * .25;
         btnSound.x = 480 * .25;
         btnMusic.setScrollFactor(0);
