@@ -16,9 +16,6 @@ export class TextStyles {
     }
     setConstants(width) {
         this.width = width;
-        //
-        //
-        //
         TextStyles.SIZE_VERY_LARGE = width / 5;
         TextStyles.SIZE_LARGE = width / 10;
         TextStyles.SIZE_MED3 = width / 15;
@@ -41,8 +38,6 @@ export class TextStyles {
         return this.width/ size;
     }
     getStyle(style) {
-        //get a config object
-        //based on the style string
         if (!this.styles.hasOwnProperty(style)) {
             style = TextStyles.DEFAULT;
         }
@@ -75,8 +70,6 @@ export class TextStyles {
         }
     }
     setDefaults() {
-        //#271699
-        //
         this.styles['DEFAULT'] = {
             style: {
                 color: '#ffffff',

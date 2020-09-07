@@ -11,18 +11,12 @@ export class ImageLoader {
             this.scene.load.once('complete', this.imageLoaded, this);
             this.scene.load.start();
         } else {
-            //
-            //already in cache
-            //
             if (this.callback) {
                 this.callback(this);
             }
         }
     }
     imageLoaded() {
-        //
-        //image loaded
-        //
         if (this.callback) {
             this.callback(this);
         }

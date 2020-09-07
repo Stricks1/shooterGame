@@ -9,7 +9,9 @@ This game was build using Phaser 3 to learn his functionalities
 
 ## Table of Contents
 
-* [Game Instructions](#game-instructions)
+* [Installation](#installation)
+* [Game Design Document](#game-design-document)
+* [Video Presentation](#video-presentation)
 * [Live Demo](#demo)
 * [Future Implementations](#future-implementations)
 * [Built With](#built-with)
@@ -21,9 +23,7 @@ This game was build using Phaser 3 to learn his functionalities
 * [Authors](#author)
 * [License](#license)
 
-## Game Instructions
-
-### Installation
+## Installation
 
 - You can get a local copy of the repository please run the following commands on your terminal:
 ```
@@ -35,15 +35,17 @@ $ git clone git@github.com:Stricks1/shooterGame.git
 
 Alternatively you can play online on the [Live Demo](#demo)
 
+## Game Design Document
+
 ### Game Concept
 
-On this game, you are Bob the octopus, and you are in a quest to find a treasure in the 16-bit layout deep sea. You need to face some sea creatures in order to achieve your goal. You have 5 minutes to complete the quest.
+On this game, you are Bob the octopus, and you are in a quest to find a treasure in the 16-bit layout deep sea. You need to face some sea creatures in order to achieve your goal, and you can kill the creatures by shooting ink from our hero and interact with levers on the scenario to open paths. You have 5 minutes to complete the quest.
 
 ![screenshoot](./readmeImg/gameReadme.png)
 
 ### How to play
 
-- To move our character you should use the left and arrow keys on your keyboard.
+- To move our character you should use the left and right arrow keys on your keyboard.
 - You can jump with the up arrow key, you can do one extra jump while on air performing a 'double jump'.
 - To shoot an 'ink bullet' you should press the space key on your keyboard.
 
@@ -86,6 +88,9 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 - At some points, you will face a wall of seaweed. In order to open that wall, you need to activate the lever. You can do it by touching or shooting it.
 
+## Video Presentation
+
+[Loom video apresentation](https://www.loom.com/share/2c308d7d8a1946d29fa9aca5327135e9)
 
 ## Demo
 

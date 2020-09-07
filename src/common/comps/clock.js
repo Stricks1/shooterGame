@@ -11,9 +11,7 @@ import {
 import {
     EventDispatcher
 } from "../mc/eventDispatcher";
-//
-//
-//
+
 export class Clock extends UIBlock {
     constructor(config) {
         super(config.scene);
@@ -31,13 +29,7 @@ export class Clock extends UIBlock {
             this.useOnlySeconds = config.useOnlySeconds;
         }
         this.emitter = EventDispatcher.getInstance();
-        //
-        //
-        //
         this.resetSecs = this.secs;
-        //
-        //
-        //
         this.text1 = new TextObj({
             scene: this.scene,
             text: config.text,
@@ -46,9 +38,6 @@ export class Clock extends UIBlock {
         this.add(this.text1);
         this.setText();
         this.setSize(this.text1.displayWidth, this.text1.displayHeight);
-        //
-        //
-        //
         this.scene.add.existing(this);
         this.emitter.on("SET_TIME", this.setClock.bind(this));
         this.emitter.on("ADD_TIME", this.addTime.bind(this));
@@ -83,7 +72,6 @@ export class Clock extends UIBlock {
     tick() {
         this.secs--;
         if (this.secs == 0) {
-            // this.stopClock();
             if (this.callback) {
                 this.callback();
             }
