@@ -37,10 +37,6 @@ import {
 } from '../common/comps/charObjects';
 import { Clock } from '../common/comps/clock';
 
-//
-//
-//
-
 /* eslint-disable no-undef */
 /* eslint-disable class-methods-use-this */
 // eslint-disable-next-line import/prefer-default-export
@@ -78,9 +74,7 @@ export class SceneMain extends BaseScene {
   }
 
   create() {
-    // set up the base scene
     super.create();
-    // set the grid for the scene
     this.makeAlignGrid(11, 11);
 
     this.blockGrid = new AlignGrid({
@@ -105,14 +99,12 @@ export class SceneMain extends BaseScene {
 
     this.cameras.main.setBounds(0, 0, this.sys.game.config.width * 10, this.sys.game.config.height);
 
-    // create chest endGame
     this.makeFloor(357, 359, 'ground2');
     const chest = this.physics.add.sprite(0, 0, 'chest');
     this.blockGrid.placeAtIndex(238, chest);
     this.physics.add.collider(chest, this.brickGroup);
     chest.setGravityY(100);
 
-    // create levers
     this.lever = this.physics.add.sprite(0, 0, 'lever');
     this.blockGrid.placeAtIndex(1198, this.lever);
     Align.scaleToGameW(this.lever, 0.075, this);
@@ -126,7 +118,6 @@ export class SceneMain extends BaseScene {
     this.physics.world.setBounds(0, 0,
       this.sys.game.config.width * 10, this.sys.game.config.height);
 
-    // create scenario tiles and platforms
     this.placeBlock(21, 'ground2', 0.075);
     this.placeBlock(141, 'ground2', 0.075);
     this.placeBlock(677, 'ground2', 0.075);
@@ -148,10 +139,7 @@ export class SceneMain extends BaseScene {
     this.makeFloor(822, 832, 'ground3');
     this.makeFloor(595, 595, 'ground3');
 
-    // floor
     this.makeFloor(1200, 1319, 'ground1');
-
-    // create decoration
 
     this.decorationGroup = this.physics.add.group();
     this.createDecor(1086, 'coral1', 0.05);
@@ -167,8 +155,6 @@ export class SceneMain extends BaseScene {
     this.createDecor(239, 'coral1', 0.055);
     this.physics.add.collider(this.decorationGroup, this.brickGroup);
 
-    // Enemy creations
-    // create dolphin
     this.dolphinsGroup = this.physics.add.group();
     this.createDolphin(725);
     this.placeWall(723, 'enWall');
@@ -205,7 +191,6 @@ export class SceneMain extends BaseScene {
     this.placeWall(471, 'enWall');
     this.physics.add.collider(this.dolphinsGroup, this.enWallGroup);
 
-    // create whales
     this.whalesGroup = this.physics.add.group();
     this.createWhale(367);
     this.placeWall(364, 'enWall');
@@ -221,7 +206,6 @@ export class SceneMain extends BaseScene {
     this.placeWall(898, 'enWall');
     this.physics.add.collider(this.whalesGroup, this.enWallGroup);
 
-    // create jelly
     this.jellysGroup = this.physics.add.group();
     this.createJelly(620);
     this.placeWall(140, 'enWall');
@@ -240,7 +224,6 @@ export class SceneMain extends BaseScene {
     this.placeWall(595, 'enWall');
     this.physics.add.collider(this.jellysGroup, this.enWallGroup);
 
-    // create agroFish
     this.agroFishesGroup = this.physics.add.group();
     this.createAgroFish(615);
     this.placeWall(612, 'enWall');
@@ -262,7 +245,6 @@ export class SceneMain extends BaseScene {
     this.placeWall(1198, 'enWall');
     this.physics.add.collider(this.agroFishesGroup, this.enWallGroup);
 
-    // create Sea Horses
     this.seaHorsesGroup = this.physics.add.group();
     this.createSeaHorse(482);
     this.placeWall(480, 'enWall');
@@ -275,8 +257,6 @@ export class SceneMain extends BaseScene {
     this.placeWall(1007, 'enWall');
     this.physics.add.collider(this.seaHorsesGroup, this.enWallGroup);
 
-
-    // create main character
     this.player = new Player(this, 100, 450, 'hero');
     this.blockGrid.placeAtIndex(720, this.player);
     this.player.setCollideWorldBounds(true);
@@ -340,9 +320,6 @@ export class SceneMain extends BaseScene {
 
     this.cameras.main.startFollow(this.player);
 
-    //
-    //
-    // this.blockGrid.showNumbers();
     this.makeUi();
     this.scorePoints = 0;
   }

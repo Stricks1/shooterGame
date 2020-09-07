@@ -19,9 +19,7 @@ export class AlignGrid {
         if (!config.width) {
             config.width = this.scene.sys.game.config.width;
         }
-        //cell width
         this.cw = config.width / config.cols;
-        //cell height
         this.ch = config.height / config.rows;
         this.startX = 0;
         this.startY = 0;
@@ -33,10 +31,6 @@ export class AlignGrid {
         }
     }
     show() {
-        
-        //
-        //
-        //
         this.graphics = this.scene.add.graphics();
         this.graphics.lineStyle(2, 0xff0000);
         for (var i = 0; i < this.config.width; i += this.cw) {
@@ -51,7 +45,6 @@ export class AlignGrid {
         return this.graphics;
     }
     placeAt(xx, yy, obj) {
-        //calc position based upon the cellwidth and cellheight
         var x2 = this.startX + this.cw * xx + this.cw / 2;
         var y2 = this.startY + this.ch * yy + this.ch / 2;
         obj.x = x2;

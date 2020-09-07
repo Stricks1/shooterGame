@@ -21,14 +21,7 @@ export class BaseUI extends UIBlock {
         this.config = config;
         this.gw = this.scene.sys.game.config.width;
         this.gh = this.scene.sys.game.config.height;
-        //
-        //
-        //
         this.textStyles = TextStyles.getInstance(this.gw);
-        //
-        //
-        //
-        //
     }
     initPos() {
         if (this.config.x) {
@@ -50,9 +43,6 @@ export class BaseUI extends UIBlock {
         }
         let startX = this.back.x - this.back.displayWidth / 2;
         let startY = this.back.y - this.back.displayHeight / 2;
-        //
-        //
-        //
         this.aGrid = new AlignGrid({
             scene: this.scene,
             rows: rows,

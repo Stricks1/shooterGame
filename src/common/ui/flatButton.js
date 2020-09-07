@@ -10,9 +10,6 @@ import {
 } from "../util/align";
 export class FlatButton extends BaseUI {
     constructor(config) {
-        if (!config.key) {
-            //config.key = ut.theme.buttons.key;
-        }
         super({
             scene: config.scene
         });
@@ -20,9 +17,6 @@ export class FlatButton extends BaseUI {
         this.scene = config.scene;
         this.setBack(config.key, config.scale);
         this.setAlignGrid(3, 3);
-        //
-        //
-        //
         this.text1 = this.placeText(config.text, 4, config.textStyle);
         if (config.x) {
             this.x = config.x;
@@ -30,9 +24,6 @@ export class FlatButton extends BaseUI {
         if (config.y) {
             this.y = config.y;
         }
-        //
-        //
-        //
         if (config.callback) {
             this.callback = config.callback;
             this.back.setInteractive();
