@@ -13,6 +13,7 @@ This game was build using Phaser 3 to learn his functionalities
 * [Game Design Document](#game-design-document)
 * [Video Presentation](#video-presentation)
 * [Live Demo](#demo)
+* [Planification](#planification)
 * [Future Implementations](#future-implementations)
 * [Built With](#built-with)
 * [Testing](#testing)
@@ -96,6 +97,18 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 [Live Demo](https://phaserseagame.herokuapp.com)
 
+## Planification
+
+- **Day 1:** My objective was to learn how to use Phaser to work efficiently when starting developing and to learn how to deploy a Phaser project on Heroku. I searched for some tutorials and Templates that I could use, and how to use a Parallax background. Looked up for some basic game assets in order to create something deployable and did some tutorials on deploying with Heroku. By the end of this day, I was able to understand how to use Phaser, and to deploy on Heroku.
+
+- **Day 2:** My objective on this day was to create the whole concept and idea for the game and have a version deployable with the character and some enemies. I decided to make the game a character quest for a chest. Designed the idea for different enemies and interactions. Searched for some more assets and music. At the end of this day, I had the full idea of the game and a version with the hero and some enemies to deploy on Heroku.
+
+- **Day 3:** My objective was to complete the main scene itself and start to design the title, instructions and leaderboard scenes. On this day I mostly did the development, created the whole scenario, added all the platforms, enemies, walls, and levers. I refined the scoring system to give points for the remaining time when the player gets to the chest and worked to make it already a playable main scene. Started the design on the side scenes (title, instructions, and leaderboard), and started creating the API to access the Scores.
+
+- **Day 4:** My objective here was to make the API working and to refine my main scenario, adding some extra animations and decorative objects to make the game looks nicer. This day I was able to achieve those objectives and also to make some changes on the template for activating/deactiving the sounds and background music to give a better touch.
+
+- **Day 5:** My objective was to create the tests on Jest and to write the README file. I followed some tutorials about creating mockup Phaser elements in order to create the tests and wrote all the README. Also did some fixes on some assets and I created the images needed for the documents.
+
 ## Future Implementations
 
 - I plan to add more stages for the game
@@ -107,6 +120,7 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 - HTML
 - Phaser 3
 - Webpack
+- Jest
 - Leaderboard API
 
 ## Testing
