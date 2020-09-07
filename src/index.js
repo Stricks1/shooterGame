@@ -4,6 +4,7 @@ import { SceneTitle } from './scenes/sceneTitle';
 import { SceneOver } from './scenes/sceneOver';
 import { SceneLeaderboard } from './scenes/sceneLeaderboard';
 import { SceneInstructions } from './scenes/sceneInstructions';
+
 let isMobile = navigator.userAgent.indexOf('Mobile');
 if (isMobile === -1) {
   isMobile = navigator.userAgent.indexOf('Tablet');
