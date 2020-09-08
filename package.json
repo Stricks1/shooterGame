@@ -2,10 +2,19 @@
   "name": "shootergame",
   "version": "1.1.0",
   "description": "Phaser 3 shooter game",
+  "browserslist": [
+    "last 3 and_chr versions",
+    "last 3 chrome versions",
+    "last 3 opera versions",
+    "last 3 ios_saf versions",
+    "last 3 safari versions"
+  ],
   "main": "src/index.js",
   "scripts": {
+    "heroku-prebuild": "npm install --dev",
     "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "start": "npm run build && webpack-dev-server --config webpack/base.js --host=0.0.0.0 --port=$PORT --disable-host-check --open",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,21 +27,41 @@
     "url": "https://github.com/Stricks1/shooterGame.git/issues"
   },
   "homepage": "https://github.com/Stricks1/shooterGame.git#readme",
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/test/mocks/styleMock.js",
+      "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/mocks/fileMock.js"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
-    "file-loader": "^4.2.0",
-    "html-webpack-plugin": "^3.2.0",
+    "file-loader": "^4.3.0",
+    "jest": "^26.4.2",
+    "jest-canvas-mock": "^2.2.0",
     "raw-loader": "^3.1.0",
-    "terser-webpack-plugin": "^2.2.1",
-    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0",
-    "webpack-merge": "^4.2.2"
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "phaser": "^3.20.1"
-  }
+    "clean-webpack-plugin": "^3.0.0",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^3.2.0",
+    "phaser": "^3.20.1",
+    "terser-webpack-plugin": "^2.2.1",
+    "webpack": "^4.41.2",
+    "webpack-merge": "^4.2.2"
+  },
+  "heroku-run-build-script": true
 }
