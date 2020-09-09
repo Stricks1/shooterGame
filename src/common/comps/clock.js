@@ -36,6 +36,8 @@ export class Clock extends UIBlock {
             textStyle: config.textStyle
         });
         this.add(this.text1);
+        this.text1.style._font = '22px Impact';
+        this.text1.style.fontSize = '22px';
         this.setText();
         this.setSize(this.text1.displayWidth, this.text1.displayHeight);
         this.scene.add.existing(this);

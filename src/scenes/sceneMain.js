@@ -319,7 +319,6 @@ export class SceneMain extends BaseScene {
     this.createBubbles(this.player);
 
     this.cameras.main.startFollow(this.player);
-
     this.makeUi();
     this.scorePoints = 0;
   }
@@ -522,7 +521,7 @@ export class SceneMain extends BaseScene {
       scene: this,
       callback: this.timeUp.bind(this),
     });
-    this.placeAtIndex(9, this.clock);
+    this.placeAtIndex(10, this.clock);
     this.clock.setClock(300);
     this.clock.startClock();
     this.clock.setScrollFactor(0);
