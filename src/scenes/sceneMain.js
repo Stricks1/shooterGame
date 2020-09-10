@@ -353,6 +353,7 @@ export class SceneMain extends BaseScene {
     if (finish) {
       this.emitter.emit('STOP_TIME');
       const secounds = this.clock.getClockTime();
+      this.scorePoints += 250;
       this.scorePoints += (secounds * 5);
     } else {
       this.emitter.emit('STOP_TIME');
@@ -522,7 +523,7 @@ export class SceneMain extends BaseScene {
       callback: this.timeUp.bind(this),
     });
     this.placeAtIndex(10, this.clock);
-    this.clock.setClock(300);
+    this.clock.setClock(260);
     this.clock.startClock();
     this.clock.setScrollFactor(0);
   }

@@ -40,7 +40,7 @@ Alternatively you can play online on the [Live Demo](#demo)
 
 ### Game Concept
 
-On this game, you are Bob the octopus, and you are in a quest to find a treasure in the 16-bit layout deep sea. You need to face some sea creatures in order to achieve your goal, and you can kill the creatures by shooting ink from our hero and interact with levers on the scenario to open paths. You have 5 minutes to complete the quest.
+On this game, you are Bob the octopus, and you are in a quest to find a treasure in the 16-bit layout deep sea. You need to face some sea creatures in order to achieve your goal, and you can kill the creatures by shooting ink from our hero and interact with levers on the scenario to open paths. You have a limited time to complete the quest.
 
 ![screenshoot](./readmeImg/gameReadme.png)
 
@@ -83,7 +83,7 @@ On this game, you are Bob the octopus, and you are in a quest to find a treasure
 
 ![chest](./readmeImg/chestReadme.png)
 
-- Our goal is to reach the chest, as soon as we got it we finish our quest. The seconds you had left on the clock are then converted into points (Each second worth 5 points at the end).
+- Our goal is to reach the chest, as soon as we got it we finish our quest. You get 250 points and the seconds you had left on the clock are then converted into points (Each second worth 5 points at the end).
 
 ![lever](./readmeImg/leverReadme.png)
 
